@@ -3,297 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhammad Shafi | Premium Full-Stack Portfolio</title>
+    <title>Muhammed Shafi | Premium Full-Stack Portfolio</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
-                        display: ['Space Grotesk', 'sans-serif'],
-                    },
-                    colors: {
-                        dark: '#050508', // Slightly richer dark background
-                        glass: 'rgba(255, 255, 255, 0.02)',
-                        border: 'rgba(255, 255, 255, 0.06)',
-                        accent: {
-                            400: '#00f2fe', // Electric Cyan
-                            500: '#4facfe', // Bright Blue
-                            600: '#8b5cf6', // Deep Purple
-                            700: '#ff0844', // Neon Pink (accents)
-                        }
-                    },
-                    animation: {
-                        'blob': 'blob 10s infinite alternate',
-                        'marquee': 'marquee 25s linear infinite',
-                        'pulse-glow': 'pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '100%': { transform: 'translate(40px, -50px) scale(1.2)' },
-                        },
-                        marquee: {
-                            '0%': { transform: 'translateX(0%)' },
-                            '100%': { transform: 'translateX(-100%)' },
-                        },
-                        'pulse-glow': {
-                            '0%, 100%': { opacity: 0.8, filter: 'brightness(1)' },
-                            '50%': { opacity: 0.4, filter: 'brightness(1.2)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-      :root {
-  /* Core palette – deep cosmic base with vibrant, tech-forward accents */
-  --bg-deep: #0a0c12;        /* near-black with subtle blue undertone */
-  --bg-card: rgba(18, 22, 36, 0.4); /* semi-transparent dark blue-gray */
-  --text-primary: #f0f4ff;
-  --text-secondary: #a0b3d9;
-  
-  /* Gradients & accents – unique blend of cool cyan, electric violet, and warm magenta */
-  --gradient-1: linear-gradient(135deg, #00e0ff, #9d4edd, #ff4d9e);
-  --gradient-2: linear-gradient(to right, #06b6d4, #8b5cf6, #ec4899);
-  --glow-color: rgba(0, 224, 255, 0.3);
-  
-  /* Blob colors – for ambient background depth */
-  --blob-1: #4f46e5;  /* indigo */
-  --blob-2: #9333ea;  /* purple */
-  --blob-3: #06b6d4;  /* cyan */
-  --blob-4: #f43f5e;  /* rose – adds unexpected warmth */
-  
-  /* Glass card border */
-  --border-light: rgba(160, 179, 217, 0.15);
-  --border-glow: rgba(0, 224, 255, 0.5);
-}
-
-/* Base & scrollbar – refined */
-body {
-  background-color: var(--bg-deep);
-  color: var(--text-primary);
-  font-family: 'Inter', 'Space Grotesk', sans-serif; /* modern, clean */
-  line-height: 1.6;
-}
-
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--bg-deep); }
-::-webkit-scrollbar-thumb {
-  background: #2d3748;
-  border-radius: 4px;
-  border: 1px solid rgba(0, 224, 255, 0.1);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--gradient-2);
-}
-
-/* 3D canvas container (placeholder) */
-#three-canvas {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  z-index: -3;
-  pointer-events: none;
-  opacity: 0.7;
-  background: radial-gradient(circle at 30% 50%, #1a1f30, var(--bg-deep));
-}
-
-/* Noise overlay – finer, more elegant */
-.noise-overlay {
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* Ambient blobs – animated, with unique colors */
-.bg-blob {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(100px);
-  z-index: -2;
-  opacity: 0.25;
-  pointer-events: none;
-  animation: floatBlob 20s infinite alternate ease-in-out;
-}
-
-.blob-1 {
-  background: var(--blob-1);
-  width: 60vw; height: 60vw;
-  top: -20vh; left: -10vw;
-  animation-duration: 25s;
-}
-
-.blob-2 {
-  background: var(--blob-2);
-  width: 70vw; height: 70vw;
-  bottom: -30vh; right: -20vw;
-  animation-duration: 30s;
-  animation-delay: -5s;
-}
-
-.blob-3 {
-  background: var(--blob-3);
-  width: 50vw; height: 50vw;
-  top: 40vh; left: 30vw;
-  animation-duration: 22s;
-  animation-delay: -2s;
-  opacity: 0.2;
-}
-
-.blob-4 {
-  background: var(--blob-4);
-  width: 40vw; height: 40vw;
-  bottom: 10vh; left: 10vw;
-  animation-duration: 28s;
-  animation-delay: -8s;
-  opacity: 0.15;
-}
-
-@keyframes floatBlob {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(5%, 5%) scale(1.2); }
-}
-
-/* Premium glass card – richer depth, animated border */
-.glass-card {
-  background: var(--bg-card);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid var(--border-light);
-  border-radius: 24px;
-  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 224, 255, 0) inset;
-  transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.1), border-color 0.3s, box-shadow 0.4s;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Glow overlay on hover */
-.glass-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 24px;
-  padding: 2px;
-  background: var(--gradient-2);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.5s;
-  pointer-events: none;
-}
-
-.glass-card:hover::after {
-  opacity: 1;
-}
-
-.glass-card:hover {
-  transform: translateY(-6px) scale(1.02);
-  border-color: transparent; /* let the gradient border show */
-  box-shadow: 0 30px 50px -20px rgba(0, 224, 255, 0.3), 0 0 0 1px rgba(0, 224, 255, 0.2) inset;
-}
-
-/* Sleek shiny sweep effect */
-.glass-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: -75%;
-  width: 50%; height: 100%;
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.03), transparent);
-  transform: skewX(-25deg);
-  transition: left 0.8s ease;
-}
-
-.glass-card:hover::before {
-  left: 150%;
-}
-
-/* Text gradient – dynamic, using new palette */
-.text-gradient {
-  background: var(--gradient-1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 200% auto;
-  animation: textShimmer 6s linear infinite;
-}
-
-@keyframes textShimmer {
-  to { background-position: 200% center; }
-}
-
-/* Headings & accents */
-h1, h2, h3 {
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-/* Preloader – cleaner, more polished */
-#preloader {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: var(--bg-deep);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: opacity 0.8s cubic-bezier(0.8, 0, 0.2, 1);
-}
-
-.loader-text {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  background: var(--gradient-1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 1.5rem;
-  letter-spacing: 0.1em;
-}
-
-.loader-bar-container {
-  width: 260px;
-  height: 4px;
-  background: rgba(160, 179, 217, 0.1);
-  border-radius: 4px;
-  overflow: hidden;
-  box-shadow: 0 0 10px rgba(0, 224, 255, 0.2);
-}
-
-.loader-bar {
-  width: 0%;
-  height: 100%;
-  background: var(--gradient-2);
-  border-radius: 4px;
-  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 15px #00e0ff;
-}
-
-/* Optional utility classes */
-.text-secondary {
-  color: var(--text-secondary);
-}
-
-.glow-text {
-  text-shadow: 0 0 20px rgba(0, 224, 255, 0.5);
-}
-    </style>
 </head>
-<body class="antialiased selection:bg-accent-500 selection:text-white relative">
+<body class="antialiased selection:bg-accent-500 selection:text-white relative overflow-x-hidden">
 
     <div id="preloader">
         <div class="loader-text text-gradient">M.SHAFI</div>
@@ -307,17 +28,131 @@ h1, h2, h3 {
 
     <nav class="fixed w-full z-40 top-0 transition-all duration-300" id="navbar">
         <div class="mx-auto max-w-7xl mt-6 rounded-2xl px-8 py-4 flex justify-between items-center w-[90%] border border-white/5 bg-dark/40 backdrop-blur-xl shadow-lg">
-            <a href="#home" class="font-display font-bold text-2xl tracking-tighter text-white transition-transform hover:scale-105">
-                MSHAFI<span class="text-accent-400">.</span>
+            <div class="nav-logo-wrap">
+
+            <!-- Escaped placeholder — shown when robot is roaming -->
+            <div class="nav-logo-escaped" id="nav-logo-escaped" aria-hidden="true">
+                <div class="escaped-cage">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Broken cage bars -->
+                        <rect x="8" y="10" width="32" height="28" rx="4" fill="none" stroke="rgba(0,242,254,0.3)" stroke-width="1.5" stroke-dasharray="3 2"/>
+                        <!-- Bars -->
+                        <line x1="16" y1="10" x2="16" y2="38" stroke="rgba(0,242,254,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+                        <line x1="24" y1="10" x2="24" y2="38" stroke="rgba(0,242,254,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+                        <!-- Broken bar (right) — bent/missing -->
+                        <line x1="32" y1="10" x2="32" y2="22" stroke="rgba(255,80,80,0.7)" stroke-width="1.5" stroke-linecap="round"/>
+                        <line x1="32" y1="26" x2="36" y2="38" stroke="rgba(255,80,80,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 2"/>
+                        <!-- Door open -->
+                        <path d="M8 24 Q4 24 4 20 L4 14 Q4 10 8 10" stroke="rgba(0,242,254,0.5)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                        <!-- Sparks -->
+                        <circle cx="33" cy="23" r="1.5" fill="#ff5050" class="cage-spark cage-spark--1"/>
+                        <circle cx="37" cy="19" r="1"   fill="#ffaa00" class="cage-spark cage-spark--2"/>
+                        <circle cx="35" cy="27" r="1"   fill="#ff5050" class="cage-spark cage-spark--3"/>
+                        <!-- Question mark -->
+                        <text x="17" y="29" font-size="11" fill="rgba(0,242,254,0.6)" font-family="Space Grotesk,sans-serif" font-weight="700">?</text>
+                    </svg>
+                    <span class="escaped-label">Escaped!</span>
+                </div>
+            </div>
+
+            <a href="#home" class="nav-logo" aria-label="Muhammed Shafi - Home" id="robot-logo-link">
+                <!-- Cute Animated Robot Head SVG Logo -->
+                <svg class="nav-logo__svg" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <defs>
+                        <radialGradient id="eyeGlow" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+                            <stop offset="100%" stop-color="#00f2fe" stop-opacity="1"/>
+                        </radialGradient>
+                        <radialGradient id="headFill" cx="50%" cy="40%" r="60%">
+                            <stop offset="0%" stop-color="#00f2fe" stop-opacity="0.12"/>
+                            <stop offset="100%" stop-color="#0a0c12" stop-opacity="0.05"/>
+                        </radialGradient>
+                    </defs>
+
+                    <!-- Antenna stem -->
+                    <line class="logo-antenna" x1="28" y1="4" x2="28" y2="12" stroke="#00f2fe" stroke-width="2" stroke-linecap="round"/>
+                    <!-- Antenna orb — glowing ball -->
+                    <circle class="logo-antenna-orb" cx="28" cy="3.5" r="2.8" fill="#00f2fe"/>
+                    <!-- Antenna orb ring -->
+                    <circle class="logo-antenna-ring" cx="28" cy="3.5" r="4.5" fill="none" stroke="#00f2fe" stroke-width="0.8" opacity="0.4"/>
+
+                    <!-- Head — chubby rounded rect with gradient fill -->
+                    <rect class="logo-head" x="6" y="12" width="44" height="32" rx="14" fill="url(#headFill)" stroke="#00f2fe" stroke-width="1.8"/>
+
+                    <!-- Rosy cheeks -->
+                    <ellipse class="logo-cheek logo-cheek--left"  cx="12" cy="32" rx="4.5" ry="3" fill="#ff6eb4" opacity="0.4"/>
+                    <ellipse class="logo-cheek logo-cheek--right" cx="44" cy="32" rx="4.5" ry="3" fill="#ff6eb4" opacity="0.4"/>
+
+                    <!-- Left eye socket -->
+                    <ellipse cx="20" cy="25" rx="6.5" ry="6.5" fill="rgba(0,242,254,0.08)" stroke="#00f2fe" stroke-width="1.4"/>
+                    <!-- Left pupil -->
+                    <circle class="logo-pupil logo-pupil--left" cx="20" cy="25" r="3.2" fill="url(#eyeGlow)"/>
+                    <!-- Left shine dots -->
+                    <circle cx="21.8" cy="23.2" r="1.1" fill="white" opacity="0.95"/>
+                    <circle cx="19"   cy="26.5" r="0.5" fill="white" opacity="0.5"/>
+
+                    <!-- Right eye socket -->
+                    <ellipse cx="36" cy="25" rx="6.5" ry="6.5" fill="rgba(0,242,254,0.08)" stroke="#00f2fe" stroke-width="1.4"/>
+                    <!-- Right pupil -->
+                    <circle class="logo-pupil logo-pupil--right" cx="36" cy="25" r="3.2" fill="url(#eyeGlow)"/>
+                    <!-- Right shine dots -->
+                    <circle cx="37.8" cy="23.2" r="1.1" fill="white" opacity="0.95"/>
+                    <circle cx="35"   cy="26.5" r="0.5" fill="white" opacity="0.5"/>
+
+                    <!-- Eyebrow left -->
+                    <path class="logo-brow logo-brow--left"  d="M14.5 18.5 Q20 16.5 25 18" stroke="#00f2fe" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+                    <!-- Eyebrow right -->
+                    <path class="logo-brow logo-brow--right" d="M31 18 Q36 16.5 41.5 18.5" stroke="#00f2fe" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+
+                    <!-- Smile -->
+                    <path class="logo-smile" d="M18 35 Q28 42 38 35" stroke="#00f2fe" stroke-width="2" stroke-linecap="round" fill="none"/>
+                    <!-- Smile fill glow -->
+                    <path class="logo-smile-fill" d="M18 35 Q28 42 38 35" stroke="rgba(0,242,254,0.2)" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+                    <!-- Ear bolts -->
+                    <circle class="logo-ear logo-ear--left"  cx="6"  cy="28" r="3.5" fill="rgba(139,92,246,0.2)" stroke="#8b5cf6" stroke-width="1.4"/>
+                    <circle class="logo-ear logo-ear--right" cx="50" cy="28" r="3.5" fill="rgba(139,92,246,0.2)" stroke="#8b5cf6" stroke-width="1.4"/>
+                    <circle cx="6"  cy="28" r="1.2" fill="#8b5cf6"/>
+                    <circle cx="50" cy="28" r="1.2" fill="#8b5cf6"/>
+
+                    <!-- Neck -->
+                    <rect x="21" y="44" width="14" height="6" rx="3" fill="rgba(0,242,254,0.08)" stroke="#00f2fe" stroke-width="1.2" opacity="0.8"/>
+                    <circle cx="25" cy="47" r="1" fill="#00f2fe" opacity="0.8"/>
+                    <circle cx="28" cy="47" r="1" fill="#00f2fe" opacity="0.8"/>
+                    <circle cx="31" cy="47" r="1" fill="#00f2fe" opacity="0.8"/>
+
+                    <!-- Tiny star sparkles -->
+                    <g class="logo-sparkle logo-sparkle--1">
+                        <line x1="4"  y1="14" x2="4"  y2="18" stroke="#00f2fe" stroke-width="1" stroke-linecap="round"/>
+                        <line x1="2"  y1="16" x2="6"  y2="16" stroke="#00f2fe" stroke-width="1" stroke-linecap="round"/>
+                    </g>
+                    <g class="logo-sparkle logo-sparkle--2">
+                        <line x1="50" y1="10" x2="50" y2="14" stroke="#ff6eb4" stroke-width="1" stroke-linecap="round"/>
+                        <line x1="48" y1="12" x2="52" y2="12" stroke="#ff6eb4" stroke-width="1" stroke-linecap="round"/>
+                    </g>
+                    <g class="logo-sparkle logo-sparkle--3">
+                        <line x1="50" y1="38" x2="50" y2="42" stroke="#8b5cf6" stroke-width="1" stroke-linecap="round"/>
+                        <line x1="48" y1="40" x2="52" y2="40" stroke="#8b5cf6" stroke-width="1" stroke-linecap="round"/>
+                    </g>
+                </svg>
+
             </a>
+                <!-- Speech bubble -->
+                <div class="robot-bubble" id="robot-bubble" aria-live="polite">
+                    <span class="robot-bubble__text" id="robot-bubble-text"></span>
+                    <span class="robot-bubble__cursor">|</span>
+                </div>
+            </div>
             <ul class="hidden md:flex gap-10 font-medium text-sm tracking-wide text-gray-400">
                 <li><a href="#home" class="hover:text-accent-400 transition-colors">Home</a></li>
                 <li><a href="#about" class="hover:text-accent-400 transition-colors">About</a></li>
                 <li><a href="#services" class="hover:text-accent-400 transition-colors">Services</a></li>
-                <li><a href="#projects" class="hover:text-accent-400 transition-colors">Work</a></li>
+                <li><a href="#projects" class="hover:text-accent-400 transition-colors">Projects</a></li>
+                <li><a href="#contact" class="hover:text-accent-400 transition-colors">Contact</a></li>
             </ul>
-            <a href="#contact" class="hidden md:flex bg-white text-black px-6 py-2.5 rounded-full font-bold hover:bg-accent-400 hover:text-white transition-all duration-300 items-center gap-2 transform hover:-translate-y-0.5 shadow-lg">
-                Let's Talk <i class="fas fa-arrow-right text-xs"></i>
+            <a href="#contact" class="hire-me-btn hidden md:inline-flex">
+                <span class="hire-me-btn__dot"></span>
+                <span>Hire Me</span>
             </a>
         </div>
     </nav>
@@ -330,23 +165,25 @@ h1, h2, h3 {
             </div>
             
             <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.15] mb-6 tracking-tight drop-shadow-2xl">
-                Architecting the <br> 
-                <span class="text-gradient inline-block mt-2">Digital Tomorrow</span>
+                Engineering Scalable <br> 
+                <span class="text-gradient inline-block mt-2">Systems for the Future</span>
             </h1>
             
             <p class="text-gray-400 text-lg md:text-2xl max-w-3xl mx-auto mb-12 h-8 font-light" id="typing-text"></p>
             
-            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <a href="#projects" class="group relative px-8 py-4 bg-white text-black font-bold rounded-xl overflow-hidden transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(0,242,254,0.3)] hover:bg-accent-400 hover:text-white transform hover:-translate-y-1">
-                    <span class="relative z-10 flex items-center gap-2">View Portfolio <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i></span>
+            <div class="hero-actions flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <a href="resume.html" class="hero-cta-btn">
+                    <i class="fa-regular fa-file-lines hero-cta-btn__icon"></i>
+                    <span>Resume</span>
                 </a>
-                <a href="https://github.com/khanmshafi10-debug" target="_blank" class="px-8 py-4 border border-white/10 text-white font-bold rounded-xl hover:border-accent-400 hover:bg-white/5 transition-all flex items-center gap-2 transform hover:-translate-y-1 backdrop-blur-sm">
-                    <i class="fab fa-github text-xl"></i> GitHub Profile
+                <a href="https://github.com/khanmshafi10-debug" target="_blank" class="hero-cta-btn hero-cta-btn--github">
+                    <i class="fab fa-github hero-cta-btn__icon"></i>
+                    <span>GitHub Profile</span>
                 </a>
             </div>
         </div>
         
-        <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-3 opacity-60 hover:opacity-100 transition-opacity cursor-pointer" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
+        <div class="scroll-cue absolute bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-3 opacity-60 hover:opacity-100 transition-opacity cursor-pointer" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
             <span class="text-xs uppercase tracking-[0.3em] font-semibold text-accent-400">Scroll</span>
             <div class="w-[1px] h-12 bg-gradient-to-b from-accent-400 to-transparent"></div>
         </div>
@@ -380,44 +217,59 @@ h1, h2, h3 {
                 <div class="lg:col-span-5 relative gs-reveal tilt-card">
                     <div class="absolute inset-0 bg-gradient-to-tr from-accent-400 to-accent-600 blur-3xl opacity-20 rounded-full animate-pulse-glow"></div>
                     <div class="glass-card p-3 rounded-[2rem] relative z-10">
-                        <img src="Shafi pic.jpg" alt="Coding Environment" class="rounded-[1.5rem] w-full h-[550px] object-cover filter contrast-125 grayscale hover:grayscale-0 transition-all duration-700">
+                        <img src="Shafi pic.jpg" alt="Muhammed Shafi" class="rounded-[1.5rem] w-full h-[550px] object-cover filter contrast-125 grayscale hover:grayscale-0 transition-all duration-700">
                     </div>
-                    <div class="absolute -bottom-6 -right-6 glass-card px-8 py-6 rounded-2xl z-20 shadow-2xl tilt-card border border-white/10">
-                        <h3 class="font-display font-bold text-5xl text-accent-400 mb-1">3<span class="text-white">+</span></h3>
-                        <p class="text-xs text-gray-400 font-semibold uppercase tracking-[0.2em]">Years<br>Experience</p>
+                    <div class="absolute bottom-4 right-4 z-20 exp-badge">
+                        <div class="exp-badge__scan"></div>
+                        <span class="exp-badge__number">3<span>+</span></span>
+                        <span class="exp-badge__label">Yrs Exp</span>
                     </div>
                 </div>
 
                 <div class="lg:col-span-7 gs-reveal">
-                    <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">Hello, I'm <br><span class="text-gradient">Muhammad Shafi.</span></h2>
-                    <p class="text-gray-300 text-lg mb-12 leading-relaxed font-light">
-                        A Computer Science student at Air University, Multan, and a passionate software developer. I specialize in bridging the gap between beautiful design and robust backend architecture. My goal is to engineer solutions that don't just work, but deliver exceptional, seamless user experiences.
-                    </p>
+                    <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">Hello, I'm <br><span class="text-gradient">Muhammed Shafi.</span></h2>
+
+                    <!-- Small robot about-badge -->
+                    <div class="about-badge" id="about-badge">
+                        <span class="about-badge__dot"></span>
+                        <span class="about-badge__text">Software Engineer · Open to Work</span>
+                    </div>
+                    <div class="space-y-5 mb-12">
+                        <p class="text-gray-300 text-lg leading-relaxed font-light">
+                            I'm a Software Engineering student at Air University, Multan. I love to build scalable, high-performance systems. My focus lies in backend architecture, database design, and full-stack development — I love to transform complex problems into clean, efficient solutions.
+                        </p>
+                        <p class="text-gray-300 text-lg leading-relaxed font-light">
+                            I specialize in developing structured, secure applications using modern technologies like <span class="text-accent-400 font-medium">Python</span>, <span class="text-accent-500 font-medium">Node.js</span>, <span class="text-accent-400 font-medium">SQL</span>, and <span class="text-accent-600 font-medium">.NET</span>. From banking management systems to full-stack web platforms, I engineer software that is reliable, optimized, and built for growth.
+                        </p>
+                        <p class="text-gray-200 text-lg leading-relaxed font-medium border-l-2 border-accent-400 pl-4">
+                            My goal is not just to write code — but to design systems that endure, scale, and deliver real-world impact.
+                        </p>
+                    </div>
 
                     <h3 class="font-display text-2xl font-bold mb-8 flex items-center gap-4 text-white">
                         <span class="w-10 h-[2px] bg-accent-400"></span> Career Trajectory
                     </h3>
 
-                    <div id="experience" class="space-y-10 border-l border-white/10 pl-8 relative ml-2">
+                    <div id="experience" class="space-y-10 pl-8 relative ml-2 timeline-track">
                         <div class="relative gs-reveal group">
-                            <span class="absolute -left-[37px] top-1.5 w-4 h-4 rounded-full bg-dark border-2 border-accent-400 group-hover:bg-accent-400 transition-colors shadow-[0_0_15px_#00f2fe]"></span>
+                            <span class="timeline-dot timeline-dot--active"></span>
                             <h4 class="text-2xl font-bold text-white mb-1 tracking-tight">Web Developer</h4>
-                            <p class="text-accent-400 font-medium mb-3">@ Arch Technologies <span class="text-gray-500 text-sm ml-2 font-normal">| Dec 2025 - Present</span></p>
-                            <p class="text-gray-400 leading-relaxed font-light">Architecting scalable digital solutions, focusing on modern web frameworks and optimizing client market presence.</p>
+                            <p class="text-accent-400 font-medium mb-3">@ Arch Technologies <span class="text-gray-500 text-sm ml-2 font-normal">| Dec 2025 – Present</span></p>
+                            <p class="text-gray-400 leading-relaxed font-light">Designing and delivering scalable web solutions for real-world clients — architecting modern frontend interfaces with React and Next.js while optimizing backend performance and driving measurable growth in client digital presence.</p>
                         </div>
                         
                         <div class="relative gs-reveal group">
-                            <span class="absolute -left-[37px] top-1.5 w-4 h-4 rounded-full bg-dark border-2 border-white/20 group-hover:border-accent-500 transition-colors"></span>
+                            <span class="timeline-dot timeline-dot--mid"></span>
                             <h4 class="text-2xl font-bold text-white mb-1 tracking-tight">Internship Trainee</h4>
-                            <p class="text-accent-500 font-medium mb-3">@ SPS, Inc. <span class="text-gray-500 text-sm ml-2 font-normal">| Oct 2025 - Jan 2026</span></p>
-                            <p class="text-gray-400 leading-relaxed font-light">Developed foundational industry experience in software productivity strategies and team collaboration workflows.</p>
+                            <p class="text-accent-500 font-medium mb-3">@ SPS, Inc. <span class="text-gray-500 text-sm ml-2 font-normal">| Oct 2025 – Jan 2026</span></p>
+                            <p class="text-gray-400 leading-relaxed font-light">Gained hands-on industry exposure in enterprise software workflows, contributing to structured team sprints, codebase maintenance, and productivity optimization — bridging the gap between academic knowledge and professional engineering practice.</p>
                         </div>
 
                         <div class="relative gs-reveal group">
-                            <span class="absolute -left-[37px] top-1.5 w-4 h-4 rounded-full bg-dark border-2 border-white/20 group-hover:border-accent-600 transition-colors"></span>
-                            <h4 class="text-2xl font-bold text-white mb-1 tracking-tight">Founder & Writer</h4>
-                            <p class="text-accent-600 font-medium mb-3">@ BlogWithShafi <span class="text-gray-500 text-sm ml-2 font-normal">| Mar 2025 - Oct 2025</span></p>
-                            <p class="text-gray-400 leading-relaxed font-light">Researched and authored comprehensive guides simplifying complex programming concepts for global audiences.</p>
+                            <span class="timeline-dot timeline-dot--past"></span>
+                            <h4 class="text-2xl font-bold text-white mb-1 tracking-tight">Founder & Technical Writer</h4>
+                            <p class="text-accent-600 font-medium mb-3">@ BlogWithHamza <span class="text-gray-500 text-sm ml-2 font-normal">| Mar 2025 – Oct 2025</span></p>
+                            <p class="text-gray-400 leading-relaxed font-light">Founded and grew a technical blog dedicated to simplifying backend systems, database design, and software architecture for developers worldwide — producing in-depth guides, tutorials, and concept breakdowns that earned a loyal readership of engineering enthusiasts.</p>
                         </div>
                     </div>
                 </div>
@@ -428,8 +280,8 @@ h1, h2, h3 {
     <section id="services" class="py-32 px-6 relative z-10 bg-black/20 border-y border-white/5 backdrop-blur-sm">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-20 gs-reveal">
-                <span class="text-accent-400 font-semibold tracking-[0.2em] uppercase text-sm">Capabilities</span>
-                <h2 class="font-display text-4xl md:text-5xl font-bold mt-4 tracking-tight">What I Bring to the <span class="text-gradient">Table</span></h2>
+                <span class="text-accent-400 font-semibold tracking-[0.2em] uppercase text-sm">Services</span>
+                <h2 class="font-display text-4xl md:text-5xl font-bold mt-4 tracking-tight">Professional Services I <span class="text-gradient">Offer</span></h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -437,16 +289,16 @@ h1, h2, h3 {
                     <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent-400/20 to-transparent flex items-center justify-center mb-8 border border-accent-400/30 group-hover:bg-accent-400 transition-colors">
                         <i class="fas fa-code text-2xl text-accent-400 group-hover:text-dark"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4 font-display tracking-tight text-white">Frontend Mastery</h3>
-                    <p class="text-gray-400 leading-relaxed font-light">Crafting pixel-perfect, highly responsive, and accessible user interfaces using React, Next.js, and modern CSS frameworks like Tailwind.</p>
+                    <h3 class="text-2xl font-bold mb-4 font-display tracking-tight text-white">Full Stack Development</h3>
+                    <p class="text-gray-400 leading-relaxed font-light">Designing and building complete, scalable web applications from front to back. Skilled in creating seamless integrations between intuitive frontends and powerful backend systems using modern technologies. Delivering performance, security, and real-world usability in every solution.</p>
                 </div>
 
                 <div class="glass-card p-10 rounded-3xl tilt-card gs-reveal group" style="transition-delay: 100ms;">
                     <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent-500/20 to-transparent flex items-center justify-center mb-8 border border-accent-500/30 group-hover:bg-accent-500 transition-colors">
-                        <i class="fas fa-server text-2xl text-accent-500 group-hover:text-dark"></i>
+                        <i class="fas fa-project-diagram text-2xl text-accent-500 group-hover:text-dark"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4 font-display tracking-tight text-white">Backend Architecture</h3>
-                    <p class="text-gray-400 leading-relaxed font-light">Building robust APIs and secure databases using Python, Node.js, SQL, and .NET. Ensuring your application scales efficiently under heavy load.</p>
+                    <h3 class="text-2xl font-bold mb-4 font-display tracking-tight text-white">Software Design & Architecture</h3>
+                    <p class="text-gray-400 leading-relaxed font-light">Crafting strong foundations for software systems. Focused on designing Scalable, Maintainable & Secure Architectures. Ensuring systems are robust, portable, provide Interoperability and future-ready with proper SDD Documentation for easy Maintainability.</p>
                 </div>
 
                 <div class="glass-card p-10 rounded-3xl tilt-card gs-reveal group" style="transition-delay: 200ms;">
@@ -457,300 +309,353 @@ h1, h2, h3 {
                     <p class="text-gray-400 leading-relaxed font-light">Translating raw ideas into beautiful, intuitive experiences. Focusing on seamless user journeys, elegant wireframing, and modern aesthetics.</p>
                 </div>
             </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+                <div class="glass-card p-10 rounded-3xl tilt-card gs-reveal group">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent-400/20 to-transparent flex items-center justify-center mb-8 border border-accent-400/30 group-hover:bg-accent-400 transition-colors">
+                        <i class="fas fa-cloud text-2xl text-accent-400 group-hover:text-dark"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 font-display tracking-tight text-white">Cloud & DevOps</h3>
+                    <p class="text-gray-400 leading-relaxed font-light">Automating deployments, managing cloud infrastructure, and ensuring reliable, scalable delivery pipelines with modern DevOps practices.</p>
+                </div>
+                <div class="glass-card p-10 rounded-3xl tilt-card gs-reveal group" style="transition-delay: 100ms;">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent-500/20 to-transparent flex items-center justify-center mb-8 border border-accent-500/30 group-hover:bg-accent-500 transition-colors">
+                        <i class="fas fa-database text-2xl text-accent-500 group-hover:text-dark"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 font-display tracking-tight text-white">Data Engineering</h3>
+                    <p class="text-gray-400 leading-relaxed font-light">Designing data pipelines, ETL systems, and analytics-ready architectures so business data is clean, accessible, and actionable.</p>
+                </div>
+                <div class="glass-card p-10 rounded-3xl tilt-card gs-reveal group" style="transition-delay: 200ms;">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent-600/20 to-transparent flex items-center justify-center mb-8 border border-accent-600/30 group-hover:bg-accent-600 transition-colors">
+                        <i class="fas fa-network-wired text-2xl text-accent-600 group-hover:text-dark"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 font-display tracking-tight text-white">Network Engineering</h3>
+                    <p class="text-gray-400 leading-relaxed font-light">Building and managing reliable network infrastructures. Knowledge of network configuration, security, and optimization to ensure smooth and secure communication between systems. Supporting high availability and efficient data flow.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="projects" class="py-32 px-6 relative z-10">
+    <section id="projects" class="projects-section py-32 px-6 relative z-10">
         <div class="max-w-7xl mx-auto relative">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gs-reveal">
-                <div>
-                    <span class="text-accent-400 font-semibold tracking-[0.2em] uppercase text-sm">Portfolio</span>
-                    <h2 class="font-display text-4xl md:text-5xl font-bold mt-4 tracking-tight">Featured <span class="text-gradient">Creations</span></h2>
+            <div class="projects-header gs-reveal">
+                <div class="projects-copy">
+                    <span class="projects-kicker">GitHub Projects</span>
+                    <h2 class="projects-heading">
+                        <span class="ph-word ph-word--1">Projects</span>
+                        <span class="ph-word ph-word--2">From</span>
+                        <span class="ph-word ph-word--3">My</span>
+                        <br>
+                        <span class="ph-word ph-word--4 ph-glitch" data-text="GitHub">GitHub</span>
+                    </h2>
+                    <p class="projects-lede">A curated look at the repositories where I turn ideas into useful interfaces, backend systems, and clean software experiments.</p>
                 </div>
-                <a href="https://github.com/khanmshafi10-debug" target="_blank" class="text-white hover:text-accent-400 transition-colors mt-6 md:mt-0 font-semibold flex items-center gap-2 pb-1 group">
-                    Explore GitHub <i class="fas fa-arrow-right text-sm transform group-hover:translate-x-1 transition-transform"></i>
-                </a>
+
+                <aside class="projects-source glass-card" aria-label="GitHub project source" role="link" tabindex="0" onclick="window.open('https://github.com/khanmshafi10-debug','_blank')" onkeydown="if(event.key==='Enter')window.open('https://github.com/khanmshafi10-debug','_blank')" style="cursor:pointer;">
+                    <div class="projects-source__header">
+                        <div>
+                            <span class="projects-source__status">Source Profile</span>
+                            <a href="https://github.com/khanmshafi10-debug" target="_blank" rel="noopener noreferrer" class="projects-source__user">
+                                khanmshafi10-debug
+                            </a>
+                        </div>
+                        <div class="projects-source__icon-wrap">
+                            <i class="fab fa-github"></i>
+                        </div>
+                    </div>
+                    <div class="projects-metrics">
+                        <div>
+                            <strong id="repo-count">--</strong>
+                            <span>Repos Shown</span>
+                        </div>
+                        <div>
+                            <strong id="repo-language-count">--</strong>
+                            <span>Languages</span>
+                        </div>
+                        <div>
+                            <strong id="repo-updated">--</strong>
+                            <span>Latest Update</span>
+                        </div>
+                    </div>
+                </aside>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="github-repos">
-                <div class="glass-card rounded-3xl p-8 h-72 animate-pulse"></div>
-                <div class="glass-card rounded-3xl p-8 h-72 animate-pulse" style="animation-delay: 100ms;"></div>
-                <div class="glass-card rounded-3xl p-8 h-72 animate-pulse" style="animation-delay: 200ms;"></div>
+            <div class="projects-grid" id="github-repos" aria-live="polite">
+                <div class="project-card project-card--loading glass-card" aria-hidden="true"></div>
+                <div class="project-card project-card--loading glass-card" aria-hidden="true"></div>
+                <div class="project-card project-card--loading glass-card" aria-hidden="true"></div>
+                <div class="project-card project-card--loading glass-card" aria-hidden="true"></div>
+                <div class="project-card project-card--loading glass-card" aria-hidden="true"></div>
+                <div class="project-card project-card--loading glass-card" aria-hidden="true"></div>
+            </div>
+
+            <div class="projects-cta">
+                <a href="https://github.com/khanmshafi10-debug?tab=repositories" target="_blank" rel="noopener noreferrer" class="projects-cta__button">
+                    <i class="fab fa-github"></i>
+                    <span class="projects-cta__label">
+                        <span class="projects-cta__label-main">Further Projects on GitHub</span>
+                        <span class="projects-cta__label-alt">View All Repositories →</span>
+                    </span>
+                </a>
             </div>
         </div>
     </section>
 
     <section id="contact" class="py-32 px-6 relative z-10">
-        <div class="max-w-4xl mx-auto glass-card rounded-[2.5rem] p-8 md:p-16 gs-reveal relative overflow-hidden border border-white/10">
-            <div class="absolute top-0 right-0 w-64 h-64 bg-accent-600 rounded-full blur-[100px] opacity-20 pointer-events-none"></div>
-            <div class="absolute bottom-0 left-0 w-64 h-64 bg-accent-400 rounded-full blur-[100px] opacity-20 pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto relative">
+            <!-- Background blobs -->
+            <div class="absolute top-0 right-0 w-96 h-96 bg-accent-600 rounded-full blur-[120px] opacity-15 pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-96 h-96 bg-accent-400 rounded-full blur-[120px] opacity-15 pointer-events-none"></div>
             
-            <div class="text-center mb-16 relative z-10">
-                <h2 class="font-display text-4xl md:text-6xl font-bold mb-6 tracking-tight">Let's Build <br><span class="text-gradient">Something Epic.</span></h2>
-                <p class="text-gray-400 text-lg max-w-lg mx-auto font-light">Currently open for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
-            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-stretch relative z-10">
+                <!-- Left Column: Heading + Contact Info -->
+                <div class="gs-reveal flex flex-col contact-left">
+                    <h2 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight leading-[1.1]">
+                        GET IN <span class="text-gradient">TOUCH</span>
+                    </h2>
+                    <p class="text-gray-400 text-lg mb-10 font-light leading-relaxed">
+                        Have a project, opportunity, or just want to talk shop?<br>
+                        Send a message and I'll reply within 24–48 hours.
+                    </p>
 
-            <form class="space-y-6 relative z-10 max-w-2xl mx-auto" onsubmit="event.preventDefault(); alert('Form simulated successfully!');">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="group">
-                        <label class="block text-xs font-semibold text-gray-400 mb-2 uppercase tracking-[0.1em] group-focus-within:text-accent-400 transition-colors">Your Name</label>
-                        <input type="text" class="w-full bg-dark/50 backdrop-blur-md border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-accent-400 text-white transition-all placeholder-gray-600" placeholder="John Doe" required>
+                    <div class="space-y-5">
+                        <!-- Email -->
+                        <div class="flex items-center gap-4 group">
+                            <div class="w-11 h-11 rounded-xl bg-accent-400/10 border border-accent-400/20 flex items-center justify-center flex-shrink-0 group-hover:bg-accent-400/20 transition-colors">
+                                <i class="fas fa-envelope text-accent-400"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-0.5">Email</p>
+                                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=khanmshafi10@gmail.com" target="_blank" rel="noopener noreferrer" class="text-white font-medium hover:text-accent-400 transition-colors text-sm">
+                                    khanmshafi10@gmail.com
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="flex items-center gap-4 group">
+                            <div class="w-11 h-11 rounded-xl bg-accent-500/10 border border-accent-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-accent-500/20 transition-colors">
+                                <i class="fas fa-phone text-accent-500"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-0.5">Phone</p>
+                                <a href="tel:+923356979472" class="text-white font-medium hover:text-accent-500 transition-colors text-sm">
+                                    03356979472
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="flex items-center gap-4 group">
+                            <div class="w-11 h-11 rounded-xl bg-accent-600/10 border border-accent-600/20 flex items-center justify-center flex-shrink-0 group-hover:bg-accent-600/20 transition-colors">
+                                <i class="fas fa-map-marker-alt text-accent-600"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-0.5">Location</p>
+                                <p class="text-white font-medium text-sm">Pakistan • Remote</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="group">
-                        <label class="block text-xs font-semibold text-gray-400 mb-2 uppercase tracking-[0.1em] group-focus-within:text-accent-400 transition-colors">Your Email</label>
-                        <input type="email" class="w-full bg-dark/50 backdrop-blur-md border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-accent-400 text-white transition-all placeholder-gray-600" placeholder="john@example.com" required>
+
+                    <!-- Social Links -->
+                    <div class="mt-8 pt-6 border-t border-white/10">
+                        <p class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-3">Connect</p>
+                        <div class="flex gap-3">
+                            <a href="https://www.linkedin.com/in/muhammad-shafi-014803357" target="_blank" class="w-10 h-10 rounded-lg border border-white/10 flex items-center justify-center text-gray-400 hover:bg-[#0a66c2] hover:text-white hover:border-transparent transition-all hover:-translate-y-1 bg-dark/50 backdrop-blur-sm">
+                                <i class="fab fa-linkedin-in text-sm"></i>
+                            </a>
+                            <a href="https://github.com/khanmshafi10-debug" target="_blank" class="w-10 h-10 rounded-lg border border-white/10 flex items-center justify-center text-gray-400 hover:bg-white hover:text-dark hover:border-transparent transition-all hover:-translate-y-1 bg-dark/50 backdrop-blur-sm">
+                                <i class="fab fa-github text-sm"></i>
+                            </a>
+                            <a href="https://www.instagram.com/mshafileghari?utm_source=qr&igsh=MXI5Zng0YTVyb3N4NQ==" target="_blank" class="w-10 h-10 rounded-lg border border-white/10 flex items-center justify-center text-gray-400 hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] hover:text-white hover:border-transparent transition-all hover:-translate-y-1 bg-dark/50 backdrop-blur-sm">
+                                <i class="fab fa-instagram text-sm"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Availability card — fills remaining height -->
+                    <div class="mt-auto pt-8">
+                        <div class="avail-card rounded-2xl border border-accent-400/20 bg-accent-400/5 p-6 relative overflow-hidden">
+                            <!-- Scan sweep -->
+                            <div class="avail-card__scan"></div>
+                            <!-- Corner glow -->
+                            <div class="absolute inset-0 bg-gradient-to-br from-accent-400/10 to-transparent pointer-events-none"></div>
+                            <div class="relative z-10 flex items-start gap-4">
+                                <!-- Dot with ping ripple -->
+                                <div class="relative flex-shrink-0 mt-1">
+                                    <span class="absolute inline-flex w-3 h-3 rounded-full bg-accent-400 opacity-60 animate-ping"></span>
+                                    <span class="relative inline-flex w-3 h-3 rounded-full bg-accent-400 shadow-[0_0_10px_#00f2fe]"></span>
+                                </div>
+                                <div>
+                                    <p class="text-white font-bold font-display text-lg mb-1">Available for Work</p>
+                                    <p class="text-gray-400 text-sm font-light leading-relaxed">
+                                        Currently open to freelance projects, full-time roles, and exciting collaborations. Let's build something great together.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="group">
-                    <label class="block text-xs font-semibold text-gray-400 mb-2 uppercase tracking-[0.1em] group-focus-within:text-accent-400 transition-colors">The Idea</label>
-                    <textarea rows="4" class="w-full bg-dark/50 backdrop-blur-md border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-accent-400 text-white transition-all resize-none placeholder-gray-600" placeholder="Tell me about your project, vision, or goals..." required></textarea>
-                </div>
-                <button type="submit" class="w-full bg-white text-dark font-bold text-lg py-4 rounded-xl hover:bg-accent-400 hover:text-white transition-all duration-300 shadow-lg transform hover:-translate-y-1 mt-4">
-                    Send Message
-                </button>
-            </form>
-            
-            <div class="mt-16 pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
-                <a href="mailto:khanmshafi10@gmail.com" class="text-lg font-display font-bold text-gray-300 hover:text-accent-400 transition-colors">
-                    khanmshafi10@gmail.com
-                </a>
-                <div class="flex gap-4">
-                    <a href="https://www.linkedin.com/in/muhammad-shafi-014803357" target="_blank" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:bg-[#0a66c2] hover:text-white hover:border-transparent transition-all hover:-translate-y-1 bg-dark/50 backdrop-blur-sm"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://github.com/khanmshafi10-debug" target="_blank" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:bg-white hover:text-dark hover:border-transparent transition-all hover:-translate-y-1 bg-dark/50 backdrop-blur-sm"><i class="fab fa-github"></i></a>
-                    <a href="https://www.instagram.com/mshafileghari/" target="_blank" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] hover:text-white hover:border-transparent transition-all hover:-translate-y-1 bg-dark/50 backdrop-blur-sm"><i class="fab fa-instagram"></i></a>
+
+                <!-- Right Column: Contact Form -->
+                <div class="glass-card p-8 md:p-10 rounded-3xl gs-reveal contact-right">
+                    <form id="contact-form" class="space-y-6" onsubmit="handleContactSubmit(event)">
+                        <!-- Name -->
+                        <div class="group">
+                            <label class="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">Name</label>
+                            <input 
+                                id="cf-name"
+                                type="text" 
+                                class="w-full bg-dark/50 backdrop-blur-md border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-accent-400 text-white transition-all placeholder-gray-600" 
+                                placeholder="Your name" 
+                                required
+                            >
+                        </div>
+
+                        <!-- Email -->
+                        <div class="group">
+                            <label class="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">Email</label>
+                            <input 
+                                id="cf-email"
+                                type="email" 
+                                class="w-full bg-dark/50 backdrop-blur-md border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-accent-400 text-white transition-all placeholder-gray-600" 
+                                placeholder="your@email.com" 
+                                required
+                            >
+                        </div>
+
+                        <!-- Subject -->
+                        <div class="group">
+                            <label class="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">Subject</label>
+                            <input 
+                                id="cf-subject"
+                                type="text" 
+                                class="w-full bg-dark/50 backdrop-blur-md border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-accent-400 text-white transition-all placeholder-gray-600" 
+                                placeholder="Project inquiry, collaboration..." 
+                                required
+                            >
+                        </div>
+
+                        <!-- Message -->
+                        <div class="group">
+                            <label class="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">Message</label>
+                            <textarea 
+                                id="cf-message"
+                                rows="4" 
+                                class="w-full bg-dark/50 backdrop-blur-md border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-accent-400 text-white transition-all resize-none placeholder-gray-600" 
+                                placeholder="Tell me about your project..." 
+                                required
+                            ></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button 
+                            type="submit" 
+                            class="w-full bg-gradient-to-r from-accent-400 to-accent-600 text-white font-bold text-base py-4 rounded-xl hover:from-accent-500 hover:to-accent-700 transition-all duration-300 shadow-lg shadow-accent-400/20 hover:shadow-accent-400/40 transform hover:-translate-y-1 flex items-center justify-center gap-2"
+                        >
+                            <span>Send Message</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="text-center py-8 text-sm text-gray-500 border-t border-white/5 bg-dark relative z-10 font-medium tracking-wide">
-        <p>Engineered with <i class="fas fa-heart text-accent-700 mx-1"></i> by Muhammad Shafi &copy; 2026</p>
+    <footer id="portfolio-footer" class="portfolio-footer relative z-10">
+        <div class="portfolio-footer__inner">
+            <div class="portfolio-footer__content">
+                <span class="portfolio-footer__eyebrow">
+                    <span class="footer-eyebrow__line footer-eyebrow__line--left"></span>
+                    Keep Exploring
+                    <span class="footer-eyebrow__line footer-eyebrow__line--right"></span>
+                </span>
+                <h2 class="portfolio-footer__title">
+                    <span class="footer-word footer-word--1">Thanks</span>
+                    <span class="footer-word footer-word--2"> For </span>
+                    <span class="footer-word footer-word--3 text-gradient">Visiting</span>
+                </h2>
+                <p class="portfolio-footer__copy">Built with focus,
+                    <span class="footer-mug">
+                        <i class="fas fa-mug-hot mx-1" aria-hidden="true"></i>
+                        <span class="footer-steam" aria-hidden="true">
+                            <span class="footer-steam__wisp footer-steam__wisp--1"></span>
+                            <span class="footer-steam__wisp footer-steam__wisp--2"></span>
+                            <span class="footer-steam__wisp footer-steam__wisp--3"></span>
+                        </span>
+                    </span>
+                    , and clean code.
+                </p>
+            </div>
+
+            <div class="portfolio-footer__actions" aria-label="Portfolio quick links">
+                <a href="#home" class="portfolio-footer__link"><i class="fas fa-house"></i><span>Home</span></a>
+                <a href="#about" class="portfolio-footer__link"><i class="fas fa-user"></i><span>About</span></a>
+                <a href="#projects" class="portfolio-footer__link"><i class="fas fa-layer-group"></i><span>Projects</span></a>
+                <a href="https://github.com/khanmshafi10-debug" target="_blank" class="portfolio-footer__link"><i class="fab fa-github"></i><span>GitHub</span></a>
+                <a href="https://www.linkedin.com/in/muhammad-shafi-014803357" target="_blank" class="portfolio-footer__link"><i class="fab fa-linkedin-in"></i><span>LinkedIn</span></a>
+            </div>
+
+            <div class="portfolio-footer__bottom">
+                <p>Portfolio by <span>Muhammed Shafi</span></p>
+                <p>&copy; 2026 All rights reserved.</p>
+            </div>
+        </div>
     </footer>
+
+    <!-- Roaming Robot -->
+    <div id="roaming-robot" aria-hidden="true">
+        <div id="roaming-robot-bubble"></div>
+        <svg width="64" height="64" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <radialGradient id="rEyeGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+                    <stop offset="100%" stop-color="#00f2fe" stop-opacity="1"/>
+                </radialGradient>
+                <radialGradient id="rHeadFill" cx="50%" cy="40%" r="60%">
+                    <stop offset="0%" stop-color="#00f2fe" stop-opacity="0.12"/>
+                    <stop offset="100%" stop-color="#0a0c12" stop-opacity="0.05"/>
+                </radialGradient>
+            </defs>
+            <line x1="28" y1="4" x2="28" y2="12" stroke="#00f2fe" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="28" cy="3.5" r="2.8" fill="#00f2fe" class="r-antenna-orb"/>
+            <circle cx="28" cy="3.5" r="4.5" fill="none" stroke="#00f2fe" stroke-width="0.8" opacity="0.4" class="r-antenna-ring"/>
+            <rect x="6" y="12" width="44" height="32" rx="14" fill="url(#rHeadFill)" stroke="#00f2fe" stroke-width="1.8" class="r-head"/>
+            <ellipse cx="12" cy="32" rx="4.5" ry="3" fill="#ff6eb4" opacity="0.4"/>
+            <ellipse cx="44" cy="32" rx="4.5" ry="3" fill="#ff6eb4" opacity="0.4"/>
+            <ellipse cx="20" cy="25" rx="6.5" ry="6.5" fill="rgba(0,242,254,0.08)" stroke="#00f2fe" stroke-width="1.4"/>
+            <circle cx="20" cy="25" r="3.2" fill="url(#rEyeGlow)" class="r-pupil-l"/>
+            <circle cx="21.8" cy="23.2" r="1.1" fill="white" opacity="0.95"/>
+            <ellipse cx="36" cy="25" rx="6.5" ry="6.5" fill="rgba(0,242,254,0.08)" stroke="#00f2fe" stroke-width="1.4"/>
+            <circle cx="36" cy="25" r="3.2" fill="url(#rEyeGlow)" class="r-pupil-r"/>
+            <circle cx="37.8" cy="23.2" r="1.1" fill="white" opacity="0.95"/>
+            <path d="M14.5 18.5 Q20 16.5 25 18" stroke="#00f2fe" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+            <path d="M31 18 Q36 16.5 41.5 18.5" stroke="#00f2fe" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+            <path d="M18 35 Q28 42 38 35" stroke="#00f2fe" stroke-width="2" stroke-linecap="round" fill="none" class="r-smile"/>
+            <path d="M18 35 Q28 42 38 35" stroke="rgba(0,242,254,0.2)" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <circle cx="6"  cy="28" r="3.5" fill="rgba(139,92,246,0.2)" stroke="#8b5cf6" stroke-width="1.4"/>
+            <circle cx="50" cy="28" r="3.5" fill="rgba(139,92,246,0.2)" stroke="#8b5cf6" stroke-width="1.4"/>
+            <circle cx="6"  cy="28" r="1.2" fill="#8b5cf6"/>
+            <circle cx="50" cy="28" r="1.2" fill="#8b5cf6"/>
+            <rect x="21" y="44" width="14" height="6" rx="3" fill="rgba(0,242,254,0.08)" stroke="#00f2fe" stroke-width="1.2" opacity="0.8"/>
+            <circle cx="25" cy="47" r="1" fill="#00f2fe" opacity="0.8"/>
+            <circle cx="28" cy="47" r="1" fill="#00f2fe" opacity="0.8"/>
+            <circle cx="31" cy="47" r="1" fill="#00f2fe" opacity="0.8"/>
+        </svg>
+    </div>
+    <button id="catch-robot-btn" aria-label="Send robot back to navbar">
+        <span class="btn-ring"></span>
+        <span class="btn-ring-2"></span>
+        <span class="btn-scan"></span>
+        <span class="btn-icon">🤖</span>
+        <span>Catch Robot</span>
+    </button>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 
-    <script>
-        // --- 1. PRELOADER ---
-        window.addEventListener('load', () => {
-            const bar = document.getElementById('loader-bar');
-            bar.style.width = '100%';
-            setTimeout(() => {
-                const preloader = document.getElementById('preloader');
-                preloader.style.opacity = '0';
-                setTimeout(() => { preloader.style.display = 'none'; }, 800);
-            }, 600);
-        });
-
-        // --- 2. PREMIUM THREE.JS BACKGROUND (Flowing Cyber Terrain) ---
-        const canvas = document.getElementById('three-canvas');
-        const scene = new THREE.Scene();
-        
-        // Add fog to blend the terrain smoothly into the background
-        scene.fog = new THREE.FogExp2(0x050508, 0.025);
-
-        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
-        // Position camera to look slightly down across the landscape
-        camera.position.set(0, 5, 15);
-
-        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-        // Create the wireframe terrain plane
-        const geometry = new THREE.PlaneGeometry(100, 100, 45, 45);
-        
-        // Rotate flat
-        geometry.rotateX(-Math.PI / 2);
-
-        const material = new THREE.MeshBasicMaterial({ 
-            color: 0x4facfe, // Cyan tint
-            wireframe: true,
-            transparent: true,
-            opacity: 0.15
-        });
-
-        const plane = new THREE.Mesh(geometry, material);
-        plane.position.y = -6; // Place it below the content
-        scene.add(plane);
-
-        // Save original Y positions for wave calculation
-        const vertices = plane.geometry.attributes.position.array;
-        const originalYs = [];
-        for (let i = 0; i < vertices.length; i += 3) {
-            originalYs.push(vertices[i + 1]);
-        }
-
-        // Mouse tracking for subtle camera pan
-        let mouseX = 0;
-        let mouseY = 0;
-        const windowHalfX = window.innerWidth / 2;
-        const windowHalfY = window.innerHeight / 2;
-
-        document.addEventListener('mousemove', (event) => {
-            mouseX = (event.clientX - windowHalfX) * 0.01;
-            mouseY = (event.clientY - windowHalfY) * 0.01;
-        });
-
-        const clock = new THREE.Clock();
-
-        function animate() {
-            requestAnimationFrame(animate);
-            const time = clock.getElapsedTime();
-
-            // Animate terrain vertices (creating a flowing wave)
-            const positionAttribute = plane.geometry.attributes.position;
-            for (let i = 0; i < positionAttribute.count; i++) {
-                const x = positionAttribute.getX(i);
-                const z = positionAttribute.getZ(i);
-                
-                // Math wave formula based on x, z coordinates and time
-                const y = Math.sin(x * 0.2 + time) * 1.5 + Math.cos(z * 0.2 + time) * 1.5;
-                positionAttribute.setY(i, y);
-            }
-            positionAttribute.needsUpdate = true;
-
-            // Smoothly move camera based on mouse
-            camera.position.x += (mouseX * 2 - camera.position.x) * 0.05;
-            camera.position.y += (-mouseY * 2 + 5 - camera.position.y) * 0.05;
-            camera.lookAt(0, 0, -10);
-
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-        // --- 3. DYNAMIC TYPING EFFECT ---
-        const phrases = ["Full-Stack Engineer", "UI/UX Innovator", "Backend Architect", "Problem Solver"];
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typingEl = document.getElementById("typing-text");
-
-        function typeEffect() {
-            const currentPhrase = phrases[phraseIndex];
-            if (isDeleting) {
-                typingEl.innerHTML = `Building as a <span class="text-white font-medium">${currentPhrase.substring(0, charIndex - 1)}</span><span class="text-accent-400 font-bold">|</span>`;
-                charIndex--;
-            } else {
-                typingEl.innerHTML = `Building as a <span class="text-white font-medium">${currentPhrase.substring(0, charIndex + 1)}</span><span class="text-accent-400 font-bold">|</span>`;
-                charIndex++;
-            }
-
-            let typeSpeed = isDeleting ? 30 : 80;
-
-            if (!isDeleting && charIndex === currentPhrase.length) {
-                typeSpeed = 2000; // Pause at end
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                typeSpeed = 400; // Pause before new word
-            }
-            setTimeout(typeEffect, typeSpeed);
-        }
-        typeEffect();
-
-        // --- 4. GITHUB API FETCH ---
-        async function fetchGitHubRepos() {
-            const container = document.getElementById('github-repos');
-            try {
-                const res = await fetch('https://api.github.com/users/khanmshafi10-debug/repos?sort=updated');
-                if(!res.ok) throw new Error('Network error');
-                
-                let repos = await res.json();
-                repos = repos.filter(repo => !repo.fork).slice(0, 6); // Top 6 original
-
-                container.innerHTML = ''; // Clear skeletons
-
-                repos.forEach((repo, i) => {
-                    const card = document.createElement('div');
-                    
-                    card.className = `glass-card rounded-[2rem] p-8 tilt-card flex flex-col justify-between gs-reveal h-full group`;
-                    
-                    const formattedName = repo.name.replace(/-/g, ' ').toUpperCase();
-                    const desc = repo.description ? repo.description : 'Innovative solution developed by Muhammad Shafi focusing on high performance and clean architecture.';
-                    const lang = repo.language ? repo.language : 'Code';
-
-                    card.innerHTML = `
-                        <div>
-                            <div class="flex justify-between items-start mb-6">
-                                <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-accent-400/20 transition-colors">
-                                    <i class="far fa-folder-open text-2xl text-accent-400"></i>
-                                </div>
-                                <div class="flex gap-3">
-                                    ${repo.homepage ? `<a href="${repo.homepage}" target="_blank" class="text-gray-400 hover:text-accent-400 transition-colors"><i class="fas fa-external-link-alt"></i></a>` : ''}
-                                    <a href="${repo.html_url}" target="_blank" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-github text-xl"></i></a>
-                                </div>
-                            </div>
-                            <h3 class="font-display font-bold text-2xl mb-3 tracking-tight text-white group-hover:text-accent-400 transition-colors">${formattedName}</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-6 font-light">${desc}</p>
-                        </div>
-                        <div class="flex items-center justify-between mt-auto pt-6 border-t border-white/5">
-                            <div class="flex items-center gap-2">
-                                <span class="w-2 h-2 rounded-full ${i%2===0 ? 'bg-accent-400' : 'bg-accent-600'}"></span>
-                                <span class="text-xs font-bold text-gray-300 tracking-[0.15em] uppercase">${lang}</span>
-                            </div>
-                            <span class="text-xs text-gray-500 font-medium"><i class="far fa-star"></i> ${repo.stargazers_count}</span>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                });
-
-                // Re-init VanillaTilt for new dynamic elements
-                VanillaTilt.init(document.querySelectorAll(".tilt-card"), { max: 8, speed: 400, glare: true, "max-glare": 0.1 });
-                ScrollTrigger.refresh();
-
-            } catch (error) {
-                container.innerHTML = `<div class="col-span-full glass-card p-10 text-center rounded-3xl"><i class="fas fa-wifi text-4xl text-gray-500 mb-4"></i><p class="text-white font-display text-xl">GitHub projects currently unavailable.</p><a href="https://github.com/khanmshafi10-debug" class="text-accent-400 text-sm font-semibold tracking-wide uppercase mt-4 inline-block">Visit GitHub Profile</a></div>`;
-            }
-        }
-        fetchGitHubRepos();
-
-        // --- 5. GSAP ANIMATIONS ---
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Init initial tilts (subtle effect)
-        VanillaTilt.init(document.querySelectorAll(".tilt-card"), { max: 8, speed: 400, glare: true, "max-glare": 0.1 });
-
-        // Staggered reveals for smoother look
-        const revealElements = document.querySelectorAll(".gs-reveal");
-        revealElements.forEach((el) => {
-            gsap.fromTo(el, 
-                { autoAlpha: 0, y: 30 }, 
-                { 
-                    duration: 1, 
-                    autoAlpha: 1, 
-                    y: 0, 
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: el,
-                        start: "top 85%",
-                        toggleActions: "play none none reverse"
-                    }
-                }
-            );
-        });
-
-        // Navbar blur and resize effect on scroll
-        const nav = document.getElementById('navbar');
-        const navInner = nav.firstElementChild;
-        window.addEventListener('scroll', () => {
-            if(window.scrollY > 50) {
-                navInner.classList.add('py-2');
-                navInner.classList.remove('py-4');
-            } else {
-                navInner.classList.add('py-4');
-                navInner.classList.remove('py-2');
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
+
