@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4K AI Robot with Voice & Expressions</title>
+    <style>
+        :root {
+            --bg-dark: #050507;
+            --bg-light: #161821;
+            --robot-base: #111216;
+            --robot-highlight: #43495c;
+            --glow-color: #ffffff;
+            --glow-spread: rgba(255, 255, 255, 0.8);
+            --light-x: 35%;
+            --light-y: 25%;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background: radial-gradient(circle at center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            perspective: 1500px;
+            color: white;
+        }
+
+        /* --- UI Overlay --- */
+        .ui-container {
+            position: absolute;
+            bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .status-text {
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.6);
+            text-shadow: 0 0 10px rgba(255,255,255,0.2);
+            transition: color 0.3s;
+        }
+
+        .mic-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .mic-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.1);
+            border-color: var(--glow-color);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .mic-btn.listening {
+            background: rgba(255, 50, 50, 0.2);
+            border-color: #ff4444;
+            box-shadow: 0 0 30px rgba(255, 50, 50, 0.4);
+            animation: pulse-red 1.5s infinite;
+        }
+
+        .mic-icon {
+            width: 20px;
+            height: 30px;
+            border: 2px solid white;
+            border-radius: 10px;
+            position: relative;
+        }
+        .mic-icon::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 8px;
+            background: white;
+        }
+
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 10px rgba(255, 50, 50, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(255, 50, 50, 0.8); }
+            100% { box-shadow: 0 0 10px rgba(255, 50, 50, 0.4); }
+        }
+
+        /* --- HD Scene & Robot --- */
+        .scene {
+            position: relative;
+            width: 400px;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-style: preserve-3d;
+        }
+
+        .robot-wrapper {
+            position: relative;
+            transform-style: preserve-3d;
+            animation: float-ambient 6s ease-in-out infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            will-change: transform; /* Hardware acceleration for 4K smoothness */
+        }
+
+        @keyframes float-ambient {
+            0%, 100% { transform: translateY(0px) translateZ(0); }
+            50% { transform: translateY(-15px) translateZ(0); }
+        }
+
+        /* --- HD Dynamic Lighting Head --- */
+        .head-container {
+            position: relative;
+            width: 250px;
+            height: 210px;
+            z-index: 10;
+            transition: transform 0.1s linear;
+            transform-style: preserve-3d;
+        }
+
+        .head-shell {
+            position: absolute;
+            inset: 0;
+            /* Dynamic gradient that follows cursor */
+            background: radial-gradient(circle at var(--light-x) var(--light-y), var(--robot-highlight) 0%, var(--robot-base) 45%, #000000 90%);
+            border-radius: 48% 48% 45% 45%;
+            box-shadow: 
+                inset 2px 2px 5px rgba(255, 255, 255, 0.3), 
+                inset -15px -15px 40px rgba(0, 0, 0, 0.9),
+                0 30px 60px rgba(0, 0, 0, 0.8);
+            transform-style: preserve-3d;
+        }
+
+        /* Visor Glass */
+        .visor {
+            position: absolute;
+            width: 180px;
+            height: 140px;
+            background: #020202;
+            border-radius: 45%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) translateZ(30px);
+            box-shadow: 
+                inset 0px 10px 30px rgba(0,0,0,1),
+                0 0 20px rgba(0,0,0,0.9);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-style: preserve-3d;
+        }
+
+        /* Glossy Visor Reflection (Moves with cursor) */
+        .visor::before {
+            content: '';
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle at var(--light-x) var(--light-y), rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 50%);
+            top: -50px;
+            left: -50px;
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+
+        /* --- Dynamic Facial Features --- */
+        .face-features {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform: translateZ(25px);
+            transition: transform 0.1s linear;
+        }
+
+        .eyes {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 40px;
+        }
+
+        /* Eyes morph based on class */
+        .eye {
+            width: 28px;
+            height: 16px;
+            border: 6px solid var(--glow-color);
+            border-bottom: none;
+            border-radius: 30px 30px 0 0;
+            box-shadow: 0 -3px 15px var(--glow-spread), inset 0 3px 10px var(--glow-spread);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center bottom;
+            animation: blink 4s infinite;
+        }
+
+        @keyframes blink {
+            0%, 96%, 98%, 100% { transform: scaleY(1); opacity: 1; }
+            97% { transform: scaleY(0.1); opacity: 0.5; }
+        }
+
+        /* State: Listening (Wide eyes) */
+        .robot-wrapper.listening .eye {
+            height: 28px;
+            border-bottom: 6px solid var(--glow-color);
+            border-radius: 50%;
+            animation: none; /* Stop blinking when listening intently */
+        }
+
+        /* Mouth */
+        .mouth {
+            position: absolute;
+            bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 20px;
+            border: 6px solid var(--glow-color);
+            border-top: none;
+            border-radius: 0 0 50px 50px;
+            box-shadow: 0 3px 15px var(--glow-spread), inset 0 -3px 10px var(--glow-spread);
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* State: Listening (Small 'o' mouth) */
+        .robot-wrapper.listening .mouth {
+            width: 15px;
+            height: 15px;
+            border-top: 6px solid var(--glow-color);
+            border-radius: 50%;
+            bottom: 40px;
+        }
+
+        /* State: Talking (Controlled by JS) */
+        .mouth.talking {
+            border-top: 6px solid var(--glow-color);
+            border-radius: 20px;
+            /* Height changes dynamically in JS */
+        }
+
+        /* --- Ears --- */
+        .ear {
+            position: absolute;
+            top: 50%;
+            width: 22px;
+            height: 80px;
+            background: #08090c;
+            border-radius: 12px;
+            transform-style: preserve-3d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 2px 2px 5px rgba(255,255,255,0.1), 0 10px 20px rgba(0,0,0,0.8);
+        }
+        .ear.left { left: -12px; transform: translateY(-50%) translateZ(-15px) rotateY(-20deg); }
+        .ear.right { right: -12px; transform: translateY(-50%) translateZ(-15px) rotateY(20deg); }
+
+        .ear-glow {
+            width: 6px;
+            height: 50px;
+            background: var(--glow-color);
+            border-radius: 5px;
+            box-shadow: 0 0 15px var(--glow-spread);
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        .robot-wrapper.listening .ear-glow {
+            background: #ff4444;
+            box-shadow: 0 0 20px rgba(255, 50, 50, 0.8);
+        }
+
+        /* --- Dynamic Body --- */
+        .body-container {
+            position: relative;
+            width: 160px;
+            height: 150px;
+            margin-top: -20px;
+            z-index: 5;
+            transition: transform 0.1s linear;
+            transform-style: preserve-3d;
+        }
+
+        .body-shell {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--light-x) var(--light-y), var(--robot-highlight) 0%, var(--robot-base) 55%, #000000 100%);
+            border-radius: 40px 40px 60px 60px;
+            box-shadow: 
+                inset 2px 5px 10px rgba(255, 255, 255, 0.2), 
+                inset -15px -20px 40px rgba(0, 0, 0, 0.9),
+                0 25px 50px rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-style: preserve-3d;
+        }
+
+        .chest-ring {
+            width: 55px;
+            height: 55px;
+            border: 7px solid var(--glow-color);
+            border-radius: 50%;
+            transform: translateZ(20px);
+            box-shadow: 0 0 20px var(--glow-spread), inset 0 0 15px var(--glow-spread);
+            transition: all 0.3s;
+        }
+
+        .robot-wrapper.listening .chest-ring {
+            border-color: #ff4444;
+            box-shadow: 0 0 25px rgba(255, 50, 50, 0.8), inset 0 0 15px rgba(255, 50, 50, 0.8);
+        }
+
+        /* Arms */
+        .arm {
+            position: absolute;
+            top: 25px;
+            width: 40px;
+            height: 110px;
+            background: radial-gradient(ellipse at top, #323642 0%, #050608 100%);
+            border-radius: 20px;
+            box-shadow: inset 2px 5px 10px rgba(255,255,255,0.1), 5px 10px 20px rgba(0,0,0,0.8);
+            transform-origin: top center;
+        }
+        .arm::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle at top left, var(--robot-highlight), var(--robot-base));
+            border-radius: 50%;
+            box-shadow: inset -3px -3px 8px rgba(0,0,0,0.8);
+        }
+        .arm.left { left: -30px; transform: rotate(15deg) translateZ(-10px); animation: swing-left 4s ease-in-out infinite; }
+        .arm.right { right: -30px; transform: rotate(-15deg) translateZ(-10px); animation: swing-right 4s ease-in-out infinite; }
+        
+        @keyframes swing-left { 0%, 100% { transform: rotate(15deg) translateZ(-10px); } 50% { transform: rotate(22deg) translateZ(-10px); } }
+        @keyframes swing-right { 0%, 100% { transform: rotate(-15deg) translateZ(-10px); } 50% { transform: rotate(-22deg) translateZ(-10px); } }
+
+    </style>
+</head>
+<body>
+
+    <div class="scene">
+        <div class="robot-wrapper" id="robotWrapper">
+            <!-- Head Segment -->
+            <div class="head-container" id="robotHead">
+                <div class="head-shell">
+                    <div class="ear left"><div class="ear-glow"></div></div>
+                    <div class="ear right"><div class="ear-glow"></div></div>
+                    
+                    <div class="visor">
+                        <div class="face-features" id="robotFace">
+                            <div class="eyes">
+                                <div class="eye"></div>
+                                <div class="eye"></div>
+                            </div>
+                            <div class="mouth" id="robotMouth"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Body Segment -->
+            <div class="body-container" id="robotBody">
+                <div class="arm left"></div>
+                <div class="arm right"></div>
+                
+                <div class="body-shell">
+                    <div class="chest-ring"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interface -->
+    <div class="ui-container">
+        <div class="status-text" id="statusText">SYSTEM READY</div>
+        <button class="mic-btn" id="micBtn" title="Click to Speak">
+            <div class="mic-icon"></div>
+        </button>
+    </div>
+
+    <script>
+        // --- 1. HD Mouse Tracking & Dynamic Lighting ---
+        const head = document.getElementById('robotHead');
+        const face = document.getElementById('robotFace');
+        const body = document.getElementById('robotBody');
+        const root = document.documentElement;
+
+        let cx = window.innerWidth / 2;
+        let cy = window.innerHeight / 2;
+
+        window.addEventListener('resize', () => {
+            cx = window.innerWidth / 2;
+            cy = window.innerHeight / 2;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            const mx = e.clientX;
+            const my = e.clientY;
+
+            // 3D Rotation Calculation
+            const offsetX = (mx - cx) / cx; // -1 to 1
+            const offsetY = (my - cy) / cy; // -1 to 1
+
+            head.style.transform = `rotateY(${offsetX * 35}deg) rotateX(${-(offsetY * 25)}deg)`;
+            face.style.transform = `translate(${offsetX * 20}px, ${offsetY * 15}px) translateZ(25px)`;
+            body.style.transform = `rotateY(${offsetX * 15}deg) rotateX(${-(offsetY * 8)}deg)`;
+
+            // Dynamic Lighting Calculation (Shadows & Specular highlight follows mouse)
+            const lightX = ((mx / window.innerWidth) * 100).toFixed(1);
+            const lightY = ((my / window.innerHeight) * 100).toFixed(1);
+            root.style.setProperty('--light-x', `${lightX}%`);
+            root.style.setProperty('--light-y', `${lightY}%`);
+        });
+
+        document.addEventListener('mouseleave', () => {
+            head.style.transform = `rotateY(0deg) rotateX(0deg)`;
+            face.style.transform = `translate(0px, 0px) translateZ(25px)`;
+            body.style.transform = `rotateY(0deg) rotateX(0deg)`;
+            root.style.setProperty('--light-x', `35%`);
+            root.style.setProperty('--light-y', `25%`);
+        });
+
+        // --- 2. Speech Recognition & Synthesis (Human Interaction) ---
+        const micBtn = document.getElementById('micBtn');
+        const statusText = document.getElementById('statusText');
+        const robotWrapper = document.getElementById('robotWrapper');
+        const robotMouth = document.getElementById('robotMouth');
+
+        // Setup Speech Recognition
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const synth = window.speechSynthesis;
+        let recognition = null;
+        let talkInterval = null;
+
+        if (SpeechRecognition) {
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = () => {
+                robotWrapper.classList.add('listening');
+                micBtn.classList.add('listening');
+                statusText.innerText = "LISTENING...";
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                statusText.innerText = `YOU: "${transcript.toUpperCase()}"`;
+                
+                // Formulate a response based on what was said
+                setTimeout(() => respondToUser(transcript), 500);
+            };
+
+            recognition.onerror = (event) => {
+                resetState();
+                statusText.innerText = "ERROR: " + event.error.toUpperCase();
+            };
+
+            recognition.onend = () => {
+                robotWrapper.classList.remove('listening');
+                micBtn.classList.remove('listening');
+            };
+        } else {
+            statusText.innerText = "VOICE NOT SUPPORTED IN BROWSER";
+            micBtn.style.opacity = "0.5";
+            micBtn.style.cursor = "not-allowed";
+        }
+
+        micBtn.addEventListener('click', () => {
+            if (synth.speaking) synth.cancel(); // Stop talking if already talking
+            if (recognition) {
+                try {
+                    recognition.start();
+                } catch(e) {
+                    console.log("Recognition already started");
+                }
+            }
+        });
+
+        function respondToUser(text) {
+            text = text.toLowerCase();
+            let response = "I heard you, but my processing cores are still booting up.";
+
+            if (text.includes("hello") || text.includes("hi")) {
+                response = "Hello there! How can I assist you today?";
+            } else if (text.includes("how are you")) {
+                response = "I am functioning at optimal capacity, thank you for asking. The 4K interface feels great.";
+            } else if (text.includes("name")) {
+                response = "I am Nexus, your premium AI assistant model.";
+            } else if (text.includes("what can you do")) {
+                response = "I can track your movements, show expressions, and talk to you. I am fully responsive.";
+            } else if (text.includes("cool") || text.includes("awesome")) {
+                response = "Thank you! My creator designed me to look exactly like the reference image.";
+            }
+
+            statusText.innerText = "NEXUS IS SPEAKING...";
+            speakBack(response);
+        }
+
+        function speakBack(text) {
+            if (synth.speaking) synth.cancel();
+
+            const utterThis = new SpeechSynthesisUtterance(text);
+            
+            // Try to pick a smooth English voice
+            const voices = synth.getVoices();
+            const preferredVoice = voices.find(v => v.name.includes('Google UK English Male') || v.name.includes('Samantha') || v.lang === 'en-US');
+            if (preferredVoice) utterThis.voice = preferredVoice;
+
+            utterThis.pitch = 1.1;
+            utterThis.rate = 1.0;
+
+            // Lip-sync start
+            utterThis.onstart = () => {
+                robotMouth.classList.add('talking');
+                
+                // Animate mouth heights randomly to simulate talking
+                talkInterval = setInterval(() => {
+                    const randomHeight = Math.floor(Math.random() * 25) + 10;
+                    const randomWidth = Math.floor(Math.random() * 20) + 30;
+                    robotMouth.style.height = `${randomHeight}px`;
+                    robotMouth.style.width = `${randomWidth}px`;
+                }, 100);
+            };
+
+            // Lip-sync end
+            utterThis.onend = () => {
+                resetState();
+                statusText.innerText = "SYSTEM READY";
+            };
+
+            synth.speak(utterThis);
+        }
+
+        function resetState() {
+            clearInterval(talkInterval);
+            robotMouth.classList.remove('talking');
+            robotMouth.style.height = '';
+            robotMouth.style.width = '';
+            robotWrapper.classList.remove('listening');
+            micBtn.classList.remove('listening');
+        }
+
+        // Initialize voices
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = () => synth.getVoices();
+        }
+
+    </script>
+</body>
+</html>

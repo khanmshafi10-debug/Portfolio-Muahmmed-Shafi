@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Shafi - Software Developer</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef0f3;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.12);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        /* ══ HEADER ══ */
+        .header {
+            background: #1a2d4a;
+            color: white;
+            padding: 50px 60px;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .header h1 { font-size: 40px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.5px; }
+
+        .header .title {
+            font-size: 16px; font-weight: 500; opacity: 0.75;
+            margin-bottom: 28px; letter-spacing: 0.5px; text-transform: uppercase;
+        }
+
+        .contact-info {
+            display: grid; grid-template-columns: 1fr 1fr;
+            row-gap: 10px; column-gap: 30px; font-size: 13.5px;
+        }
+
+        .contact-item {
+            display: flex; align-items: center; gap: 9px;
+            color: white; text-decoration: none; transition: opacity 0.2s;
+        }
+        .contact-item:hover { opacity: 0.75; }
+        .contact-item svg { flex-shrink: 0; width: 16px; height: 16px; fill: rgba(255,255,255,0.8); }
+        .contact-item span { opacity: 0.88; }
+
+        /* ══ CONTENT ══ */
+        .content { padding: 48px 60px; }
+
+        .section { margin-bottom: 38px; }
+
+        .section h2 {
+            font-size: 13px; font-weight: 700; color: #1a2d4a;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid #1a2d4a;
+        }
+
+        /* Summary */
+        .about-text { color: #4a5568; font-size: 14.5px; line-height: 1.8; }
+
+        /* ══ SKILLS ══ */
+        .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .skill-category:last-child:nth-child(odd) { grid-column: span 2; }
+        .skill-category {
+            background: #f7f9fc; border: 1px solid #e2e8f0;
+            border-left: 3px solid #1a2d4a; border-radius: 6px;
+            padding: 16px 18px; transition: box-shadow 0.25s, transform 0.25s;
+        }
+        .skill-category:hover { box-shadow: 0 3px 12px rgba(26,45,74,0.1); transform: translateY(-2px); }
+        .skill-category h3 {
+            font-size: 13px; font-weight: 700; color: #1a2d4a;
+            margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .skill-category p { color: #5a6a80; font-size: 13.5px; line-height: 1.7; }
+
+        /* ══ EXPERIENCE ══ */
+        .experience-item {
+            margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px solid #edf2f7;
+        }
+        .experience-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; gap: 10px; }
+        .exp-header h3 { font-size: 15.5px; font-weight: 600; color: #1a2d4a; }
+        .exp-date {
+            font-size: 12px; font-weight: 500; color: #fff; background: #1a2d4a;
+            padding: 3px 10px; border-radius: 20px; white-space: nowrap; flex-shrink: 0;
+        }
+        .exp-company { font-size: 13.5px; color: #3b82f6; font-weight: 600; margin-bottom: 10px; }
+        .experience-item ul { margin-left: 18px; color: #4a5568; }
+        .experience-item li { margin-bottom: 6px; font-size: 13.5px; line-height: 1.65; }
+
+        /* ══ CERTIFICATIONS ══ */
+        .cert-item {
+            display: flex; gap: 14px; align-items: flex-start;
+            padding: 14px 16px; background: #f7f9fc;
+            border: 1px solid #e2e8f0; border-left: 3px solid #3b82f6;
+            border-radius: 6px; margin-bottom: 12px;
+            transition: box-shadow 0.25s, transform 0.25s;
+        }
+        .cert-item:last-child { margin-bottom: 0; }
+        .cert-item:hover { box-shadow: 0 3px 12px rgba(59,130,246,0.12); transform: translateX(3px); }
+        .cert-icon { font-size: 20px; line-height: 1; margin-top: 2px; }
+        .cert-body h3 { font-size: 14.5px; font-weight: 600; color: #1a2d4a; margin-bottom: 2px; }
+        .cert-body .issuer { font-size: 13px; color: #3b82f6; font-weight: 500; }
+
+        /* ══ PORTFOLIO LINKS ══ */
+        .links-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+        .link-card {
+            display: flex; align-items: center; gap: 10px;
+            padding: 13px 16px; background: #f7f9fc;
+            border: 1px solid #e2e8f0; border-left: 3px solid #1a2d4a;
+            border-radius: 6px; text-decoration: none;
+            transition: box-shadow 0.25s, transform 0.25s;
+        }
+        .link-card:hover { box-shadow: 0 3px 12px rgba(26,45,74,0.1); transform: translateY(-2px); }
+        .link-card svg { flex-shrink: 0; width: 16px; height: 16px; fill: #1a2d4a; }
+        .link-info .link-label {
+            font-size: 11px; font-weight: 700; color: #1a2d4a;
+            text-transform: uppercase; letter-spacing: 0.6px;
+        }
+        .link-info .link-url { font-size: 12.5px; color: #3b82f6; }
+
+        /* ══ EDUCATION ══ */
+        .education-item {
+            display: flex; justify-content: space-between; align-items: flex-start;
+            gap: 20px; padding: 18px 20px; background: #f7f9fc;
+            border: 1px solid #e2e8f0; border-radius: 6px;
+        }
+        .edu-left h3 { font-size: 15.5px; font-weight: 600; color: #1a2d4a; margin-bottom: 4px; }
+        .edu-left .school { font-size: 14px; color: #3b82f6; font-weight: 600; margin-bottom: 4px; }
+        .edu-left .details { font-size: 13px; color: #718096; }
+        .edu-right { text-align: right; flex-shrink: 0; }
+        .edu-right .date {
+            font-size: 13px; font-weight: 600; color: #fff; background: #1a2d4a;
+            padding: 4px 12px; border-radius: 20px; display: inline-block;
+        }
+
+        /* ══ PRINT BUTTON ══ */
+        .print-button {
+            position: fixed; top: 20px; right: 20px;
+            background: #1a2d4a; color: white; border: none;
+            padding: 11px 22px; border-radius: 6px; cursor: pointer;
+            font-size: 14px; font-weight: 600; font-family: inherit;
+            box-shadow: 0 4px 14px rgba(26,45,74,0.35);
+            z-index: 1000; transition: background 0.25s, transform 0.2s;
+        }
+        .print-button:hover { background: #243d62; transform: translateY(-1px); }
+
+        /* ══ RESPONSIVE ══ */
+        @media (max-width: 640px) {
+            body { padding: 0; }
+            .container { border-radius: 0; }
+            .header { padding: 36px 24px; }
+            .header h1 { font-size: 28px; }
+            .contact-info { grid-template-columns: 1fr; gap: 8px; }
+            .content { padding: 32px 24px; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .skill-category:last-child:nth-child(odd) { grid-column: span 1; }
+            .links-grid { grid-template-columns: 1fr; }
+            .exp-header { flex-direction: column; gap: 6px; }
+            .education-item { flex-direction: column; gap: 10px; }
+            .edu-right { text-align: left; }
+            .print-button { display: none; }
+        }
+
+        /* ══ PRINT ══ */
+        @media print {
+            body { padding: 0; background: white; }
+            .container { max-width: 100%; box-shadow: none; margin: 0; border-radius: 0; }
+            .header { padding: 30px 40px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .content { padding: 30px 40px; }
+            .section { page-break-inside: avoid; margin-bottom: 28px; }
+            .experience-item { page-break-inside: avoid; }
+            .print-button, .no-print { display: none !important; }
+            .skill-category, .education-item, .cert-item, .link-card {
+                -webkit-print-color-adjust: exact; print-color-adjust: exact;
+            }
+            .exp-date, .edu-right .date { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+
+        @page { size: A4; margin: 15mm; }
+
+        /* ══ PRELOADER ══ */
+        #preloader {
+            position: fixed; inset: 0; z-index: 9999; background: #050508;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.8s cubic-bezier(0.8, 0, 0.2, 1);
+        }
+        .loader-text {
+            font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.5rem; font-weight: 700;
+            background: linear-gradient(90deg, #00f2fe 0%, #3b82f6 45%, #00d4aa 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem; letter-spacing: 0.1em;
+        }
+        .loader-bar-container {
+            width: 260px; height: 4px; background: rgba(160,179,217,0.1);
+            border-radius: 4px; overflow: hidden; box-shadow: 0 0 10px rgba(0,224,255,0.2);
+        }
+        .loader-bar {
+            width: 0%; height: 100%;
+            background: linear-gradient(90deg, #00f2fe 0%, #3b82f6 50%, #00d4aa 100%);
+            border-radius: 4px; transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+            box-shadow: 0 0 15px #00e0ff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PRELOADER -->
+    <div id="preloader" aria-hidden="true">
+        <div class="loader-text">M.SHAFI</div>
+        <div class="loader-bar-container"><div class="loader-bar" id="loader-bar"></div></div>
+    </div>
+
+    <button class="print-button no-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="header">
+            <h1>Muhammad Shafi</h1>
+            <div class="title">Software Developer &amp; CS Student</div>
+
+            <div class="contact-info">
+                <a class="contact-item" href="mailto:khanmshafi10@gmail.com">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    <span>khanmshafi10@gmail.com</span>
+                </a>
+
+                <a class="contact-item">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5 14.5 7.62 14.5 9 13.38 11.5 12 11.5z"/></svg>
+                    <span>Multan, Punjab, Pakistan</span>
+                </a>
+
+                <a class="contact-item" href="https://www.linkedin.com/in/muhammad-shafi-014803357" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24"><path d="M19 3A2 2 0 0 1 21 5v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                    <span>linkedin.com/in/muhammad-shafi-014803357</span>
+                </a>
+
+                <a class="contact-item" href="https://github.com/khanmshafi10-debug" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+                    <span>github.com/khanmshafi10-debug</span>
+                </a>
+
+                <a class="contact-item" href="https://blogwithshafi.blogspot.com" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24"><path d="M17 6H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h.26A5.001 5.001 0 0 0 17 21a5 5 0 0 0 5-5V11a5 5 0 0 0-5-5zm-3 9H7a3 3 0 0 1-3-3 3 3 0 0 1 3-3h7v6zm3 4a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+                    <span>blogwithshafi.blogspot.com</span>
+                </a>
+
+                <a class="contact-item" href="https://khanmshafi10-debug.github.io" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                    <span>khanmshafi10-debug.github.io</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+
+            <!-- Professional Summary -->
+            <div class="section">
+                <h2>Professional Summary</h2>
+                <p class="about-text">Computer Science student at Air University Multan with hands-on industry experience as a Web Developer at Arch Technologies and internship trainee at SPS Inc. Skilled in Python, C++, .NET, SQL, and modern web technologies. Microsoft Certified Azure Data Engineer with a passion for building clean, scalable software solutions and helping clients establish a strong digital presence. Proven ability to simplify complex concepts, self-start projects, and deliver results in remote professional environments.</p>
+            </div>
+
+            <!-- Technical Skills -->
+            <div class="section">
+                <h2>Technical Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Programming Languages</h3>
+                        <p>Python, C++, C# / .NET, SQL, HTML, CSS, JavaScript</p>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Cloud & Infrastructure</h3>
+                        <p>Microsoft Azure Cloud, Azure Data Engineering, Cloud Architecture Fundamentals</p>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Web Technologies</h3>
+                        <p>Responsive Front-end Development, Back-end Logic, Modern Web Frameworks, Client-facing Deployments</p>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Tools & Practices</h3>
+                        <p>Git / GitHub, OOP, SEO & Analytics, Tech Writing, Agile Collaboration, Version Control</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Work Experience -->
+            <div class="section">
+                <h2>Work Experience</h2>
+
+                <div class="experience-item">
+                    <div class="exp-header">
+                        <h3>Web Developer</h3>
+                        <span class="exp-date">Dec 2025 – Present</span>
+                    </div>
+                    <div class="exp-company">Arch Technologies — Remote</div>
+                    <ul>
+                        <li>Develop and maintain professional web applications as part of a remote development team.</li>
+                        <li>Build responsive front-end interfaces and robust back-end logic using modern web technologies.</li>
+                        <li>Collaborate directly with clients to translate requirements into clean, deployable solutions.</li>
+                        <li>Maintain code quality and version control using Git and collaborative development practices.</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <div class="exp-header">
+                        <h3>Internship Trainee</h3>
+                        <span class="exp-date">Oct 2025 – Jan 2026</span>
+                    </div>
+                    <div class="exp-company">Software Productivity Strategists, Inc. (SPS) — Remote</div>
+                    <ul>
+                        <li>Completed structured software development training focused on industry tools and workflows.</li>
+                        <li>Worked on real-world productivity software tasks, gaining professional team experience.</li>
+                        <li>Applied best practices in software engineering, documentation, and agile collaboration.</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <div class="exp-header">
+                        <h3>Founder &amp; Technology Blogger</h3>
+                        <span class="exp-date">Mar 2025 – Oct 2025</span>
+                    </div>
+                    <div class="exp-company">BlogWithShafi — Self-Started Digital Publication, Remote</div>
+                    <ul>
+                        <li>Founded and operated a technology blog on Google Blogger, publishing consistent tech content.</li>
+                        <li>Simplified complex programming topics (Python, C++, Web Development) for beginner audiences.</li>
+                        <li>Implemented on-page SEO strategies and monitored analytics to grow organic monthly readers.</li>
+                        <li>Documented personal coding projects and troubleshooting guides as practical learning resources.</li>
+                        <li>Curated and reported on trending tools and emerging technologies in software development.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Certifications -->
+            <div class="section">
+                <h2>Certifications</h2>
+
+                <div class="cert-item">
+                    <div class="cert-icon">☁️</div>
+                    <div class="cert-body">
+                        <h3>Microsoft Certified: Azure Data Engineer Associate</h3>
+                        <div class="issuer">Issued by Microsoft</div>
+                    </div>
+                </div>
+
+                <div class="cert-item">
+                    <div class="cert-icon">⚡</div>
+                    <div class="cert-body">
+                        <h3>Arch Tech Professional Certification</h3>
+                        <div class="issuer">Issued by Arch Technologies</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Portfolio & Online Presence -->
+            <div class="section">
+                <h2>Portfolio &amp; Online Presence</h2>
+                <div class="links-grid">
+                    <a class="link-card" href="https://khanmshafi10-debug.github.io/Portfolio-Muahmmed-Shafi/" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        <div class="link-info">
+                            <div class="link-label">Portfolio</div>
+                            <div class="link-url">khanmshafi10-debug.github.io</div>
+                        </div>
+                    </a>
+                    <a class="link-card" href="https://www.linkedin.com/in/muhammad-shafi-014803357" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24"><path d="M19 3A2 2 0 0 1 21 5v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                        <div class="link-info">
+                            <div class="link-label">LinkedIn</div>
+                            <div class="link-url">linkedin.com/in/muhammad-shafi-014803357</div>
+                        </div>
+                    </a>
+                    <a class="link-card" href="https://github.com/khanmshafi10-debug" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+                        <div class="link-info">
+                            <div class="link-label">GitHub</div>
+                            <div class="link-url">github.com/khanmshafi10-debug</div>
+                        </div>
+                    </a>
+                    <a class="link-card" href="https://blogwithshafi.blogspot.com" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24"><path d="M17 6H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h.26A5.001 5.001 0 0 0 17 21a5 5 0 0 0 5-5V11a5 5 0 0 0-5-5zm-3 9H7a3 3 0 0 1-3-3 3 3 0 0 1 3-3h7v6zm3 4a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+                        <div class="link-info">
+                            <div class="link-label">Tech Blog</div>
+                            <div class="link-url">blogwithshafi.blogspot.com</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Education -->
+            <div class="section">
+                <h2>Education</h2>
+                <div class="education-item">
+                    <div class="edu-left">
+                        <h3>Bachelor of Science — Computer Science</h3>
+                        <div class="school">Air University Multan</div>
+                        <div class="details">Core focus: Data Structures, OOP, Database Systems, Web Technologies, Software Engineering</div>
+                    </div>
+                    <div class="edu-right">
+                        <span class="date">2024 – 2028</span>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /content -->
+    </div><!-- /container -->
+
+    <script>
+        window.addEventListener('load', function () {
+            var bar = document.getElementById('loader-bar');
+            if (!bar) return;
+            bar.style.width = '100%';
+            setTimeout(function () {
+                var preloader = document.getElementById('preloader');
+                if (!preloader) return;
+                preloader.style.opacity = '0';
+                setTimeout(function () { preloader.style.display = 'none'; }, 800);
+            }, 600);
+        });
+    </script>
+</body>
+</html>
