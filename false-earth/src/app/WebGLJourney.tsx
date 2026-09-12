@@ -3,7 +3,7 @@ import { useAnimations, useGLTF } from '@react-three/drei';
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 
-const assetPath = (path: string) => window.location.pathname.includes('/journey/') ? `/journey${path}` : path;
+const assetPath = (path: string) => './' + (path.startsWith('/') ? path.slice(1) : path);
 
 function StarField() {
   const positions = useMemo(() => {
@@ -63,11 +63,11 @@ function Explorer({ active }: { active: boolean }) {
   const targetCamera = useMemo(() => new THREE.Vector3(), []);
   const lookAt = useMemo(() => new THREE.Vector3(), []);
   const [astronaut, idle, walk, run, back] = useGLTF([
-    assetPath('/models/Astronaut.glb'),
-    assetPath('/models/Idle.glb'),
-    assetPath('/models/Walking.glb'),
-    assetPath('/models/Running.glb'),
-    assetPath('/models/WalkingBack.glb'),
+    assetPath('./models/Astronaut.glb'),
+    assetPath('./models/Idle.glb'),
+    assetPath('./models/Walking.glb'),
+    assetPath('./models/Running.glb'),
+    assetPath('./models/WalkingBack.glb'),
   ]) as any[];
   const character = useMemo(() => astronaut.scene.clone(true), [astronaut.scene]);
   const clips = useMemo(() => [

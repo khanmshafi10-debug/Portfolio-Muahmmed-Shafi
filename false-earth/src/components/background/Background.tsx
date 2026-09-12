@@ -16,7 +16,7 @@ export const Background = memo(function Background({ intensity, axis, speed }: {
   }), [])
 
   const cameraMode = useGameStore((state) => state.cameraMode);
-  const map = useKTX2Texture({ map: '/textures/starmap_2020_4k.ktx2' }).map
+  const map = useKTX2Texture({ map: './textures/starmap_2020_4k.ktx2' }).map
   map.mapping = THREE.EquirectangularReflectionMapping
   map.colorSpace = THREE.SRGBColorSpace
   map.wrapS = THREE.RepeatWrapping

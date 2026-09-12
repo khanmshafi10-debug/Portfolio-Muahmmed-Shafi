@@ -3,7 +3,7 @@ import glsl from "vite-plugin-glsl";
 import { resolve } from "path";
 
 export default {
-  base: "/",
+  base: "./",
   resolve: {
     alias: {
       '@core': resolve(__dirname, 'packages/three-core/src')

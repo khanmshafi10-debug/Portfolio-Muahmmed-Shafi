@@ -35,11 +35,11 @@ export const DETAIL_TEXTURE_PATHS = {
 };
 
 export const MODEL_PATHS = [
-  '/models/Astronaut.glb',
-  '/models/Idle.glb',
-  '/models/Walking.glb',
-  '/models/Running.glb',
-  '/models/WalkingBack.glb',
+  './models/Astronaut.glb',
+  './models/Idle.glb',
+  './models/Walking.glb',
+  './models/Running.glb',
+  './models/WalkingBack.glb',
 ];
 
 // ============================================================================

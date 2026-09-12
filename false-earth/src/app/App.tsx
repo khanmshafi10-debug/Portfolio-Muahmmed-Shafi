@@ -20,8 +20,8 @@ import { WebGLJourney } from './WebGLJourney';
 
 useGLTF.preload(MODEL_PATHS);
 
-preloadVATAssets('/vat/Rose_meta.json');
-preloadVATAssets('/vat/RoseLowPoly_meta.json');
+preloadVATAssets('./vat/Rose_meta.json');
+preloadVATAssets('./vat/RoseLowPoly_meta.json');
 
 export const BeamSceneContext = createContext<THREE.Scene | null>(null);
 
@@ -124,7 +124,7 @@ export default function App() {
                         <color attach="background" args={['#0B061A']} />
                         <CameraViewControl />
                         <Environment
-                            files="/textures/potsdamer_platz_1k_nb.hdr"
+                            files="./textures/potsdamer_platz_1k_nb.hdr"
                             environmentIntensity={0.75}
                         />
                         <DirectionalLight />
