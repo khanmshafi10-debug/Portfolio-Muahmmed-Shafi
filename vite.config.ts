@@ -15,6 +15,21 @@ export default defineConfig(() => {
     optimizeDeps: {
       entries: ['index.html'],
     },
+    build: {
+      outDir: 'dist',
+      rollupOptions: {
+        output: {
+          entryFileNames: 'assets/index.js',
+          chunkFileNames: 'assets/[name].js',
+          assetFileNames: (assetInfo) => {
+            if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+              return 'assets/index.css';
+            }
+            return 'assets/[name].[ext]';
+          },
+        },
+      },
+    },
     server: {
       port: 3000,
       strictPort: false, // auto-picks next free port if 3000 is busy
