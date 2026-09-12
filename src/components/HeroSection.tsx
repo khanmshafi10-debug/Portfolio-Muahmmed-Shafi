@@ -26,7 +26,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
   const navItems = [
     { label: 'About', id: 'about' },
-    { label: 'Journey', id: 'journey', href: 'http://localhost:5173' },
+    { label: 'Journey', id: 'journey', href: import.meta.env.DEV ? 'http://localhost:5173' : './journey/' },
     { label: 'Capabilities', id: 'engineering-pillars' },
     { label: 'Services', id: 'services' },
     { label: 'Honors', id: 'certifications' },
@@ -169,7 +169,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         <div className="w-[170px] xs:w-[200px] sm:w-[230px] my-1 max-w-[65vw]">
           <Magnet padding={80} strength={2}>
             <img
-              src="/avatar.png"
+              src="./avatar.png"
               alt="Shafi 3D Creator Portrait"
               fetchPriority="high"
               decoding="async"
@@ -221,7 +221,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           <Magnet padding={150} strength={3}>
             <div className="w-[clamp(280px,35vw,520px)] flex justify-center">
               <img
-                src="/avatar.png"
+                src="./avatar.png"
                 alt="Shafi 3D Creator Portrait"
                 fetchPriority="high"
                 decoding="async"

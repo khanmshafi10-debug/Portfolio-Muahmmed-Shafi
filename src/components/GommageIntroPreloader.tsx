@@ -169,7 +169,7 @@ export const GommageIntroPreloader: React.FC<GommageIntroPreloaderProps> = ({ on
 
     // Load actual GLTF Petal model if available
     const gltfLoader = new GLTFLoader();
-    gltfLoader.load('/models/petal.glb', (gltf) => {
+    gltfLoader.load('./models/petal.glb', (gltf) => {
       const loadedMesh = gltf.scene.children[0] as THREE.Mesh;
       if (loadedMesh && loadedMesh.geometry) {
         loadedMesh.geometry.scale(0.12, 0.12, 0.12);

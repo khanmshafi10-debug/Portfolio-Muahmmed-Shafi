@@ -109,7 +109,7 @@ export const FalseEarthAboutCanvas: React.FC<FalseEarthAboutCanvasProps> = ({ cl
 
     // Load Main Model
     gltfLoader.load(
-      '/models/Astronaut.glb',
+      './models/Astronaut.glb',
       (gltf) => {
         characterMesh = gltf.scene;
         characterMesh.scale.set(1.15, 1.15, 1.15);
@@ -143,7 +143,7 @@ export const FalseEarthAboutCanvas: React.FC<FalseEarthAboutCanvasProps> = ({ cl
         setIsLoading(false);
 
         // Load Idle skeletal animation
-        gltfLoader.load('/models/Idle.glb', (idleGltf) => {
+        gltfLoader.load('./models/Idle.glb', (idleGltf) => {
           if (characterMesh && idleGltf.animations && idleGltf.animations.length > 0) {
             if (!mixer) mixer = new THREE.AnimationMixer(characterMesh);
             mixer.stopAllAction();

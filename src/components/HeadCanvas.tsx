@@ -42,7 +42,7 @@ export const HeadCanvas: React.FC<HeadCanvasProps> = ({
 
     // Texture Loader with LoadingManager
     const loader = manager ? new THREE.TextureLoader(manager) : new THREE.TextureLoader();
-    const texture = loader.load('/avatar.png', () => {
+    const texture = loader.load('./avatar.png', () => {
       if (onTextureLoaded) onTextureLoaded();
     });
     texture.minFilter = THREE.LinearFilter;

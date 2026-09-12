@@ -30,7 +30,7 @@ export const QuickActionWidget: React.FC = () => {
 
         {/* Download Resume PDF Button */}
         <a
-          href="/Muhammad_Shafi_Resume.pdf"
+          href="./Muhammad_Shafi_Resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
           download="Muhammad_Shafi_Resume.pdf"

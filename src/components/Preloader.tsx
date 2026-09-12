@@ -95,7 +95,7 @@ export const Preloader: React.FC<PreloaderProps> = ({
 
     // Pre-trigger image preload
     const avatarImg = new Image();
-    avatarImg.src = '/avatar.png';
+    avatarImg.src = './avatar.png';
     avatarImg.onload = () => {
       if (targetProgress < 0.6) {
         targetProgress = 0.85;
