@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover">
+    <link rel="icon" href="data:,">
+    <title>My Journey | Shafi</title>
+  <script type="module" crossorigin src="./assets/index-Dtbt-Ic-.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DHYJ5-Sk.css">
+</head>
+<body>
+    <div id="journey-fallback" role="status">
+        <img src="./fallback.png" alt="False Earth preview">
+        <div class="journey-fallback__shade"></div>
+        <header class="journey-fallback__topbar">
+            <a href="/" class="journey-fallback__brand">SHAFI <span>/ JOURNEY</span></a>
+            <a href="/" class="journey-fallback__back">Back to portfolio</a>
+        </header>
+        <div class="journey-fallback__content">
+            <span class="journey-fallback__eyebrow">Journey / 01</span>
+            <h1>My Journey</h1>
+            <p>Exploring ideas through immersive engineering, thoughtful motion, and work that leaves a clear trace.</p>
+            <div class="journey-fallback__actions">
+                <span>Interactive preview mode</span>
+                <span>Live world enabled on WebGPU devices</span>
+            </div>
+        </div>
+    </div>
+    <div id="root"></div>
+    <script>
+        const fallback = document.getElementById('journey-fallback');
+        const showFallback = () => fallback.classList.add('is-visible');
+        window.setTimeout(() => {
+            if (!document.querySelector('#root canvas')) showFallback();
+        }, 12000);
+    </script>
+</body>
+</html>

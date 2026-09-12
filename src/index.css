@@ -8,18 +8,49 @@
   }
 
   html, body, #root {
-    background-color: #0C0C0C;
-    color: #D7E2EA;
+    background-color: #18122B;
+    color: #F8FAFC;
     font-family: 'Kanit', sans-serif;
     min-height: 100vh;
     scroll-behavior: smooth;
+    overflow-x: clip;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
 .hero-heading {
-  background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 50%, #94A3B8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-heading-gradient {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 50%, #94A3B8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  transition: all 0.5s ease;
+}
+
+.hero-heading-gradient-hover {
+  background: linear-gradient(135deg, #A855F7 0%, #EC4899 35%, #3B82F6 70%, #00F0FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 35px rgba(168, 85, 247, 0.85));
+  transition: all 0.5s ease;
 }
 
 /* Custom smooth scrollbar styling */
@@ -27,12 +58,40 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0C0C0C;
+  background: #18122B;
 }
 ::-webkit-scrollbar-thumb {
-  background: #22252A;
+  background: #3D2E60;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #383E48;
+  background: #94A3B8;
 }
+
+/* Modal specific custom scrollbar */
+.modal-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-scrollbar::-webkit-scrollbar-track {
+  background: rgba(37, 27, 62, 0.4);
+  border-radius: 9999px;
+  margin: 6px 0;
+}
+.modal-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 9999px;
+}
+.modal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #A855F7;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+

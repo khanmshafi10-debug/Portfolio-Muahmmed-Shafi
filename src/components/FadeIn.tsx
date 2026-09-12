@@ -1,5 +1,4 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useEffect, useState } from 'react';
 
 interface FadeInProps {
   children: React.ReactNode;
@@ -8,7 +7,7 @@ interface FadeInProps {
   x?: number;
   y?: number;
   className?: string;
-  as?: keyof typeof motion;
+  as?: string;
 }
 
 export const FadeIn: React.FC<FadeInProps> = ({
@@ -16,25 +15,31 @@ export const FadeIn: React.FC<FadeInProps> = ({
   delay = 0,
   duration = 0.7,
   x = 0,
-  y = 30,
+  y = 20,
   className = '',
-  as = 'div',
 }) => {
-  const MotionComponent = (motion[as] || motion.div) as React.ComponentType<any>;
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, delay * 1000);
+    return () => clearTimeout(timer);
+  }, [delay]);
 
   return (
-    <MotionComponent
-      initial={{ opacity: 0, x, y }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: '50px', amount: 0 }}
-      transition={{
-        duration,
-        delay,
-        ease: [0.25, 0.1, 0.25, 1],
+    <div
+      className={`transition-all ${className}`}
+      style={{
+        transitionDuration: `${duration}s`,
+        transitionTimingFunction: 'cubic-bezier(0.25, 0.1, 0.25, 1)',
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible
+          ? 'translate3d(0, 0, 0)'
+          : `translate3d(${x}px, ${y}px, 0)`,
       }}
-      className={className}
     >
       {children}
-    </MotionComponent>
+    </div>
   );
 };

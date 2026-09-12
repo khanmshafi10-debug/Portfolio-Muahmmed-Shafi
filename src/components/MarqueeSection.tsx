@@ -45,7 +45,7 @@ export const MarqueeSection: React.FC = () => {
   return (
     <section
       ref={containerRef}
-      className="bg-[#0C0C0C] pt-24 sm:pt-32 md:pt-40 pb-10 overflow-hidden relative"
+      className="bg-[#18122B] pt-24 sm:pt-32 md:pt-40 pb-10 overflow-hidden relative"
     >
       <div className="flex flex-col gap-3">
         {/* Row 1: Moves RIGHT on scroll */}
@@ -57,7 +57,7 @@ export const MarqueeSection: React.FC = () => {
             {row1Doubled.map((url, idx) => (
               <div
                 key={`r1-${idx}`}
-                className="w-[280px] h-[180px] sm:w-[360px] sm:h-[230px] md:w-[420px] md:h-[270px] flex-shrink-0 rounded-2xl overflow-hidden bg-[#181B22]"
+                className="w-[280px] h-[180px] sm:w-[360px] sm:h-[230px] md:w-[420px] md:h-[270px] flex-shrink-0 rounded-2xl overflow-hidden bg-[#251B3E] shadow-[0_8px_25px_rgba(0,0,0,0.4)] border border-[#94A3B8]/20"
               >
                 <img
                   src={url}
@@ -80,7 +80,7 @@ export const MarqueeSection: React.FC = () => {
             {row2Doubled.map((url, idx) => (
               <div
                 key={`r2-${idx}`}
-                className="w-[280px] h-[180px] sm:w-[360px] sm:h-[230px] md:w-[420px] md:h-[270px] flex-shrink-0 rounded-2xl overflow-hidden bg-[#181B22]"
+                className="w-[280px] h-[180px] sm:w-[360px] sm:h-[230px] md:w-[420px] md:h-[270px] flex-shrink-0 rounded-2xl overflow-hidden bg-[#251B3E] shadow-[0_8px_25px_rgba(0,0,0,0.4)] border border-[#94A3B8]/20"
               >
                 <img
                   src={url}

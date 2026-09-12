@@ -1,0 +1,6 @@
+{
+  "name": "LGPSM — Future Forward Fashion",
+  "description": "pure white minimal futuristic fashion website interface",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

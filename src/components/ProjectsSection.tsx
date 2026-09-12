@@ -1,198 +1,296 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, MotionValue } from 'motion/react';
+import React, { useState, useEffect } from 'react';
 import { FadeIn } from './FadeIn';
-import { LiveProjectButton } from './LiveProjectButton';
 import { ProjectItem } from '../types';
+import { cn } from '../lib/utils';
+import { Sparkles } from 'lucide-react';
+import { Carousel_002, CarouselImageItem } from './Skiper48';
 
-const projectsData: ProjectItem[] = [
+const visualCoverPool = [
   {
-    id: 'nextlevel',
-    number: '01',
-    name: 'Nextlevel Studio',
-    category: 'Client',
-    col1Image1:
-      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055344_5eff02e0-87a5-41ce-b64f-eb08da8f33db.png&w=1280&q=85',
     col1Image2:
-      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055431_11d841fd-8b41-46a5-82e4-b04f2407a7d8.png&w=1280&q=85',
+      'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=1000&auto=format&fit=crop',
     col2Image:
-      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055451_e317bf2d-28d4-48cc-86b0-6f72f25b6327.png&w=1280&q=85',
+      'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop',
   },
   {
-    id: 'aura',
-    number: '02',
-    name: 'Aura Brand Identity',
-    category: 'Personal',
-    col1Image1:
-      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055654_911201c5-36d9-4bc6-bac7-331adfce159f.png&w=1280&q=85',
     col1Image2:
-      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055723_5ceda0b8-d9c2-4665-b2e3-83ba19ba76d1.png&w=1280&q=85',
+      'https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?q=80&w=1000&auto=format&fit=crop',
     col2Image:
-      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055753_adc5dcbd-a8e6-49c0-b43a-9b030d835cea.png&w=1280&q=85',
+      'https://images.unsplash.com/photo-1633167606207-d840b5070fc2?q=80&w=1000&auto=format&fit=crop',
   },
   {
-    id: 'solaris',
-    number: '03',
-    name: 'Solaris Digital',
-    category: 'Client',
-    col1Image1:
-      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055759_963cfb0b-4bd1-4b0f-9d0a-09bd6cf95b2f.png&w=1280&q=85',
     col1Image2:
-      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_060108_438f781a-9846-4dcc-89ab-c4e6cb830f5b.png&w=1280&q=85',
+      'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000&auto=format&fit=crop',
     col2Image:
-      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055818_9d062121-ad7e-46b9-999a-1a6a692ef1ee.png&w=1280&q=85',
+      'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop',
   },
 ];
 
-interface ProjectCardProps {
-  project: ProjectItem;
-  index: number;
-  totalCards: number;
-  progress: MotionValue<number>;
-  onOpenProject: (project: ProjectItem) => void;
+const fallbackProjects: ProjectItem[] = [
+  {
+    id: '1',
+    number: '01',
+    name: 'Motionsiteboy 3D Portfolio',
+    category: '3D & WebGL Systems',
+    col1Image1: 'https://opengraph.githubassets.com/1/khanmshafi10-debug/motionsiteboy',
+    col1Image2: visualCoverPool[0].col1Image2,
+    col2Image: visualCoverPool[0].col2Image,
+    html_url: 'https://github.com/khanmshafi10-debug/motionsiteboy',
+    homepage: 'https://github.com/khanmshafi10-debug/motionsiteboy',
+    description: 'High-performance interactive 3D WebGL developer portfolio featuring liquid WebGL fluid simulations, Three.js shaders, and GSAP animations.',
+    language: 'TypeScript / React / WebGL',
+  },
+  {
+    id: '2',
+    number: '02',
+    name: 'NEXUS 3D Drone Control Station',
+    category: '3D & WebGL Graphics',
+    col1Image1: 'https://opengraph.githubassets.com/1/khanmshafi10-debug/nexus-3d-drone-control',
+    col1Image2: visualCoverPool[1].col1Image2,
+    col2Image: visualCoverPool[1].col2Image,
+    html_url: 'https://github.com/khanmshafi10-debug',
+    description: 'Procedurally generated 3D traffic simulator & interactive drone mission planner built with WebGL, Three.js & WASM.',
+    language: 'Three.js / C++ WASM',
+  },
+  {
+    id: '3',
+    number: '03',
+    name: 'Luxe Estate Real Estate Platform',
+    category: 'Full-Stack Web',
+    col1Image1: 'https://opengraph.githubassets.com/1/khanmshafi10-debug/luxe-estate-platform',
+    col1Image2: visualCoverPool[2].col1Image2,
+    col2Image: visualCoverPool[2].col2Image,
+    html_url: 'https://github.com/khanmshafi10-debug',
+    description: 'Production-grade real estate rental platform & auto-parts store with JWT auth, booking calendar & admin dashboard.',
+    language: 'Next.js / Node.js / MongoDB',
+  },
+  {
+    id: '4',
+    number: '04',
+    name: 'Cashup Digital Wallet Architecture',
+    category: 'Fintech & ASP.NET',
+    col1Image1: 'https://opengraph.githubassets.com/1/khanmshafi10-debug/cashup-digital-wallet',
+    col1Image2: visualCoverPool[0].col1Image2,
+    col2Image: visualCoverPool[0].col2Image,
+    html_url: 'https://github.com/khanmshafi10-debug',
+    description: 'Digital wallet & payments microservice architecture supporting money transfers, bill pay, deposits & MPIN security workflow.',
+    language: 'ASP.NET Core 8 / C#',
+  },
+  {
+    id: '5',
+    number: '05',
+    name: 'Azure Synapse Data Engineering Pipeline',
+    category: 'Cloud & Azure Data',
+    col1Image1: 'https://opengraph.githubassets.com/1/khanmshafi10-debug/azure-data-engineering-pipeline',
+    col1Image2: visualCoverPool[1].col1Image2,
+    col2Image: visualCoverPool[1].col2Image,
+    html_url: 'https://github.com/khanmshafi10-debug',
+    description: 'Enterprise ETL data pipeline analytics & Cloud Data Engineer pipeline integrating PySpark, Azure Data Factory & SQL Server.',
+    language: 'PySpark / Azure / SQL',
+  },
+  {
+    id: '6',
+    number: '06',
+    name: 'WASM C++ Engine Integration',
+    category: 'Systems & WebAssembly',
+    col1Image1: 'https://opengraph.githubassets.com/1/khanmshafi10-debug/wasm-cpp-engine',
+    col1Image2: visualCoverPool[2].col1Image2,
+    col2Image: visualCoverPool[2].col2Image,
+    html_url: 'https://github.com/khanmshafi10-debug',
+    description: 'Low-level C++ & WebAssembly traffic-light engine compiled directly for high-performance browser execution.',
+    language: 'C++ / WebAssembly / NASM',
+  },
+];
+
+function formatRepoTitle(name: string): string {
+  return name
+    .replace(/[-_]/g, ' ')
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .split(' ')
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
 }
-
-const ProjectCard: React.FC<ProjectCardProps> = ({
-  project,
-  index,
-  totalCards,
-  progress,
-  onOpenProject,
-}) => {
-  const targetScale = 1 - (totalCards - 1 - index) * 0.03;
-  const startRange = index / totalCards;
-  const scale = useTransform(progress, [startRange, 1], [1, targetScale]);
-
-  const topOffset = 80 + index * 28; // Sticky top offset with 28px separation
-
-  return (
-    <div className="sticky top-20 md:top-28 h-[85vh] sm:h-[88vh] flex items-center justify-center mb-12 sm:mb-20">
-      <motion.div
-        style={{
-          scale,
-          top: `${topOffset}px`,
-        }}
-        className="w-full max-w-6xl rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#D7E2EA] bg-[#0C0C0C] p-4 sm:p-6 md:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden h-full max-h-[780px]"
-      >
-        {/* Top Row Header */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-4 sm:mb-6 border-b border-[#D7E2EA]/15 pb-4 sm:pb-6">
-          <div className="flex items-baseline gap-3 sm:gap-6">
-            {/* Huge Number */}
-            <span
-              className="font-black text-[#D7E2EA] leading-none select-none"
-              style={{ fontSize: 'clamp(2.5rem, 7vw, 90px)' }}
-            >
-              {project.number}
-            </span>
-
-            <div className="flex flex-col">
-              <span className="text-xs sm:text-sm uppercase tracking-widest text-[#D7E2EA]/70 font-light">
-                {project.category}
-              </span>
-              <h3
-                className="font-medium uppercase text-[#D7E2EA] tracking-tight"
-                style={{ fontSize: 'clamp(1.1rem, 2.5vw, 2.2rem)' }}
-              >
-                {project.name}
-              </h3>
-            </div>
-          </div>
-
-          <LiveProjectButton
-            onClick={() => onOpenProject(project)}
-            label="Live Project"
-          />
-        </div>
-
-        {/* Bottom Row: 2-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 flex-1 min-h-0 overflow-hidden">
-          {/* Left Column (40% width / 5 cols in 12-col grid) */}
-          <div className="md:col-span-5 flex flex-col gap-4 sm:gap-6 h-full justify-between">
-            {/* Left top image */}
-            <div
-              className="w-full rounded-[30px] sm:rounded-[40px] md:rounded-[50px] overflow-hidden bg-[#181B22] flex-shrink-0"
-              style={{ height: 'clamp(120px, 16vw, 230px)' }}
-            >
-              <img
-                src={project.col1Image1}
-                alt={`${project.name} preview 1`}
-                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-
-            {/* Left bottom image */}
-            <div
-              className="w-full rounded-[30px] sm:rounded-[40px] md:rounded-[50px] overflow-hidden bg-[#181B22] flex-grow"
-              style={{ height: 'clamp(140px, 22vw, 340px)' }}
-            >
-              <img
-                src={project.col1Image2}
-                alt={`${project.name} preview 2`}
-                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-          </div>
-
-          {/* Right Column (60% width / 7 cols in 12-col grid) */}
-          <div className="md:col-span-7 h-full">
-            <div className="w-full h-full rounded-[30px] sm:rounded-[40px] md:rounded-[50px] overflow-hidden bg-[#181B22] min-h-[180px]">
-              <img
-                src={project.col2Image}
-                alt={`${project.name} showcase detail`}
-                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  );
-};
 
 interface ProjectsSectionProps {
   onOpenProjectModal: (project: ProjectItem) => void;
 }
 
 export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenProjectModal }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
+  const [projects, setProjects] = useState<ProjectItem[]>(fallbackProjects);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [selectedFilter, setSelectedFilter] = useState<string>('ALL');
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 7000);
+    let mounted = true;
+
+    async function fetchGitHubRepos() {
+      try {
+        const cached = localStorage.getItem('shafi_github_repos');
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            if (mounted) setProjects(parsed);
+          }
+        }
+      } catch (e) {
+        // Fallback default
+      }
+
+      try {
+        const response = await fetch(
+          'https://api.github.com/users/khanmshafi10-debug/repos?sort=updated&per_page=100',
+          { signal: controller.signal, headers: { Accept: 'application/vnd.github+json' } }
+        );
+        if (!response.ok) {
+          throw new Error(`GitHub API error status: ${response.status}`);
+        }
+        const data = await response.json();
+
+        const filteredRepos = Array.isArray(data)
+          ? data.filter((repo: any) => repo.name.toLowerCase() !== 'khanmshafi10-debug')
+          : [];
+
+        if (filteredRepos.length > 0) {
+          const mappedProjects: ProjectItem[] = filteredRepos.map((repo: any, idx: number) => {
+            const visual = visualCoverPool[idx % visualCoverPool.length];
+            const openGraphCard = `https://opengraph.githubassets.com/1/khanmshafi10-debug/${repo.name}`;
+
+            return {
+              id: String(repo.id || idx),
+              number: String(idx + 1).padStart(2, '0'),
+              name: formatRepoTitle(repo.name),
+              category: repo.homepage ? 'Client & Full-Stack' : 'Personal & Systems',
+              col1Image1: openGraphCard,
+              col1Image2: visual.col1Image2,
+              col2Image: visual.col2Image,
+              html_url: repo.html_url,
+              homepage: repo.homepage || undefined,
+              description: repo.description || undefined,
+              language: repo.language || undefined,
+            };
+          });
+
+          if (mounted) setProjects(mappedProjects);
+          try {
+            localStorage.setItem('shafi_github_repos', JSON.stringify(mappedProjects));
+          } catch (e) {
+            // Ignore quota errors
+          }
+        }
+      } catch (err) {
+        console.warn('GitHub API rate limit or network issue. Engaged fallback dataset:', err);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    }
+
+    fetchGitHubRepos();
+    return () => {
+      mounted = false;
+      window.clearTimeout(timeout);
+      controller.abort();
+    };
+  }, []);
+
+  const filteredProjects = projects.filter((p) => {
+    if (selectedFilter === 'ALL') return true;
+    const cat = (p.category + ' ' + (p.language || '') + ' ' + p.name).toUpperCase();
+    if (selectedFilter === '3D') return cat.includes('3D') || cat.includes('WEBGL') || cat.includes('THREE');
+    if (selectedFilter === 'FULLSTACK') return cat.includes('FULL-STACK') || cat.includes('WEB') || cat.includes('REACT') || cat.includes('NEXT') || cat.includes('CLIENT');
+    if (selectedFilter === 'CLOUD') return cat.includes('AZURE') || cat.includes('CLOUD') || cat.includes('DATA') || cat.includes('SPARK') || cat.includes('SQL');
+    if (selectedFilter === 'CSHARP') return cat.includes('ASP.NET') || cat.includes('C#') || cat.includes('FINTECH') || cat.includes('C++');
+    return true;
   });
+
+  const carouselImages: CarouselImageItem[] = filteredProjects.map((p) => ({
+    id: p.id,
+    src: p.col2Image || p.col1Image1 || visualCoverPool[0].col2Image,
+    alt: p.name,
+    title: p.name,
+    category: p.category,
+    number: p.number,
+    description: p.description,
+    homepage: p.homepage,
+    html_url: p.html_url,
+    col1Image1: p.col1Image1,
+    col1Image2: p.col1Image2,
+    col2Image: p.col2Image,
+    language: p.language,
+  }));
 
   return (
     <section
       id="projects"
-      className="bg-[#0C0C0C] text-[#D7E2EA] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 z-10 relative pt-16 sm:pt-24 pb-24 px-4 sm:px-8 md:px-10"
+      className="bg-[#18122B] text-[#F8FAFC] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] z-10 relative py-16 px-4 sm:px-6 md:px-10 border-t border-[#94A3B8]/20"
     >
-      {/* Section Heading */}
-      <FadeIn delay={0} y={30} className="w-full flex justify-center mb-12 sm:mb-16 md:mb-20">
-        <h2
-          className="hero-heading font-black uppercase text-center leading-none tracking-tight select-none"
-          style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
-        >
-          Project
-        </h2>
-      </FadeIn>
+      <div className="max-w-7xl mx-auto flex flex-col items-center">
+        {/* Section Heading & Category Filters */}
+        <div className="w-full flex flex-col items-center justify-center text-center mb-8">
+          <FadeIn delay={0} y={15} className="w-full flex flex-col items-center">
+            <h2
+              className="hero-heading font-black uppercase text-center leading-none tracking-tight select-none mb-3"
+              style={{ fontSize: 'clamp(2.25rem, 6vw, 76px)' }}
+            >
+              Projects
+            </h2>
 
-      {/* Sticky Cards Stacking Container */}
-      <div ref={containerRef} className="relative w-full max-w-6xl mx-auto">
-        {projectsData.map((project, index) => (
-          <ProjectCard
-            key={project.id}
-            project={project}
-            index={index}
-            totalCards={projectsData.length}
-            progress={scrollYProgress}
-            onOpenProject={onOpenProjectModal}
-          />
-        ))}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#A855F7]/15 border border-[#A855F7]/30 text-[#A855F7] text-xs font-semibold uppercase tracking-wider shadow-[0_0_15px_rgba(168,85,247,0.2)]">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Featured Systems &amp; Production Codebases ({filteredProjects.length} Repositories)</span>
+            </div>
+          </FadeIn>
+
+          {/* Repository Category Filter Pills */}
+          <div className="w-full max-w-4xl mx-auto px-2 mt-6">
+            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar sm:flex-wrap justify-start sm:justify-center py-1 px-1">
+              {[
+                { id: 'ALL', label: `All (${projects.length})` },
+                { id: '3D', label: '3D & WebGL' },
+                { id: 'FULLSTACK', label: 'Full-Stack' },
+                { id: 'CLOUD', label: 'Cloud & Azure' },
+                { id: 'CSHARP', label: 'ASP.NET & C#' },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setSelectedFilter(tab.id)}
+                  className={cn(
+                    'px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer flex-shrink-0 whitespace-nowrap shadow-sm',
+                    selectedFilter === tab.id
+                      ? 'bg-[#A855F7] text-white shadow-[0_0_20px_rgba(168,85,247,0.5)] border border-[#A855F7]'
+                      : 'bg-[#251B3E] text-[#94A3B8] hover:text-[#F8FAFC] border border-[#94A3B8]/30 hover:border-[#94A3B8]/60'
+                  )}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Skiper 48 Swiper EffectCards Deck Container */}
+        {loading && filteredProjects.length === 0 ? (
+          <div className="flex justify-center items-center py-20 text-[#94A3B8] font-light uppercase tracking-widest text-sm">
+            Loading GitHub Repositories...
+          </div>
+        ) : (
+          <div className="w-full py-4 flex items-center justify-center">
+            <Carousel_002
+              images={carouselImages}
+              showNavigation={true}
+              showPagination={false}
+              loop={filteredProjects.length > 1}
+              onOpenProjectModal={(proj) => {
+                const found = projects.find((p) => p.id === proj.id) || (proj as ProjectItem);
+                onOpenProjectModal(found);
+              }}
+            />
+          </div>
+        )}
       </div>
     </section>
   );
 };
+

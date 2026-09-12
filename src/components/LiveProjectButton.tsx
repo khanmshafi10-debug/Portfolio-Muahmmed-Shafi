@@ -19,7 +19,7 @@ export const LiveProjectButton: React.FC<LiveProjectButtonProps> = ({
     </span>
   );
 
-  const baseClasses = `inline-flex items-center justify-center rounded-full border-2 border-[#D7E2EA] text-[#D7E2EA] font-medium uppercase tracking-widest transition-all duration-300 hover:bg-[#D7E2EA]/10 hover:scale-105 active:scale-95 cursor-pointer px-8 py-3 sm:px-10 sm:py-3.5 text-sm sm:text-base ${className}`;
+  const baseClasses = `inline-flex items-center justify-center rounded-full border border-sm sm:border-2 border-[#E2E8F0] text-[#E2E8F0] bg-transparent font-semibold uppercase tracking-wider transition-all duration-300 hover:bg-[#E2E8F0] hover:border-[#E2E8F0] hover:text-[#18122B] hover:shadow-[0_0_20px_rgba(226,232,240,0.4)] hover:scale-105 active:scale-95 cursor-pointer px-3.5 py-1.5 sm:px-8 sm:py-3 text-[11px] sm:text-xs md:text-sm whitespace-nowrap flex-shrink-0 ${className}`;
 
   if (href) {
     return (

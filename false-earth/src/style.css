@@ -1,0 +1,118 @@
+@font-face {
+    font-family: 'Cousine';
+    src: url('/fonts/Cousine-Regular.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    font-feature-settings: normal;
+    font-variant-ligatures: none;
+    text-rendering: optimizeSpeed;
+}
+
+@font-face {
+    font-family: 'Cousine';
+    src: url('/fonts/Cousine-Regular.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    font-feature-settings: normal;
+    font-variant-ligatures: none;
+    text-rendering: optimizeSpeed;
+}
+
+@keyframes breathe {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+  html,
+body,
+#root{
+    background: radial-gradient(ellipse at 50% 50%, #7e22ce 0%, #4c1d95 25%, #2e1065 50%, #0e0520 75%, #030108 100%);
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100vw;
+    height: 100dvh;
+    overflow: hidden;
+}
+
+#journey-fallback {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: none;
+    overflow: hidden;
+    background: #080414;
+    color: #f8fafc;
+    font-family: 'Cousine', monospace;
+}
+
+#journey-fallback.is-visible { display: block; }
+#journey-fallback img { width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0.78; }
+
+.journey-fallback__shade { position: absolute; inset: 0; background: rgba(8, 4, 20, 0.35); }
+
+.journey-fallback__topbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: clamp(1.25rem, 3vw, 2.5rem);
+    border-bottom: 1px solid rgba(168, 85, 247, 0.25);
+    background: rgba(12, 8, 26, 0.4);
+    backdrop-filter: blur(12px);
+}
+
+.journey-fallback__topbar a { color: #fff; text-decoration: none; text-transform: uppercase; font-size: 0.68rem; letter-spacing: 0.13em; }
+.journey-fallback__brand { font-weight: 700; }
+.journey-fallback__brand span { color: #c084fc; }
+.journey-fallback__back { border-bottom: 1px solid rgba(168, 85, 247, 0.6); padding-bottom: 0.3rem; }
+
+.journey-fallback__content {
+    position: absolute;
+    left: clamp(1.5rem, 6vw, 5rem);
+    bottom: clamp(2rem, 8vw, 6rem);
+    display: grid;
+    gap: 1.15rem;
+    max-width: min(32rem, calc(100vw - 3rem));
+}
+
+.journey-fallback__eyebrow { color: #c084fc; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.journey-fallback__content h1 { margin: 0; color: #fff; font-family: Arial, sans-serif; font-size: clamp(3rem, 9vw, 8rem); font-weight: 800; letter-spacing: 0; line-height: 0.88; text-transform: uppercase; text-shadow: 0 0 30px rgba(168,85,247,0.5); }
+.journey-fallback__content p { max-width: 28rem; margin: 0; color: #e2e8f0; font-size: clamp(0.82rem, 1.2vw, 1rem); line-height: 1.65; }
+.journey-fallback__actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1.25rem; margin-top: 0.5rem; }
+.journey-fallback__actions a { width: fit-content; border: 1px solid rgba(168,85,247,0.75); background: rgba(168,85,247,0.15); color: #fff; padding: 0.85rem 1rem; text-decoration: none; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.11em; text-transform: uppercase; transition: all 0.2s ease; border-radius: 8px; }
+.journey-fallback__actions a:hover { background: #A855F7; color: #fff; box-shadow: 0 0 20px rgba(168,85,247,0.6); }
+.journey-fallback__actions span { color: #d7e7ee; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; }
+
+.webgl-journey { position: fixed; inset: 0; overflow: hidden; background: radial-gradient(ellipse at 50% 50%, #7e22ce 0%, #4c1d95 25%, #2e1065 50%, #0e0520 75%, #030108 100%); color: #f8fafc; font-family: 'Cousine', monospace; }
+.webgl-journey canvas { position: absolute !important; inset: 0; width: 100% !important; height: 100% !important; }
+.webgl-journey__header { position: absolute; z-index: 2; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: clamp(1.25rem, 3vw, 2.5rem); border-bottom: 1px solid rgba(255,255,255,0.16); font-size: 0.68rem; letter-spacing: 0.13em; text-transform: uppercase; }
+.webgl-journey__header a { color: #fff; text-decoration: none; font-weight: 700; }
+.webgl-journey__header a span, .webgl-journey__header > span { color: #b4c8d6; }
+.webgl-journey__intro { position: absolute; z-index: 2; left: clamp(1.5rem, 6vw, 5rem); bottom: clamp(2rem, 8vw, 6rem); display: grid; gap: 1.15rem; max-width: min(36rem, calc(100vw - 3rem)); }
+.webgl-journey__eyebrow { margin: 0; color: #c8f3ff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.webgl-journey__intro h1 { margin: 0; font-family: Arial, sans-serif; font-size: clamp(3rem, 7vw, 7rem); font-weight: 800; letter-spacing: 0; line-height: 0.88; text-transform: uppercase; }
+.webgl-journey__intro > p:not(.webgl-journey__eyebrow) { margin: 0; max-width: 31rem; color: #e2e8f0; font-size: clamp(0.82rem, 1.2vw, 1rem); line-height: 1.65; }
+.webgl-journey__intro button { width: fit-content; border: 1px solid rgba(255,255,255,0.75); background: rgba(2,7,10,0.76); color: #fff; padding: 0.9rem 1rem; font: inherit; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.11em; text-transform: uppercase; cursor: pointer; transition: background-color 0.2s ease, color 0.2s ease; }
+.webgl-journey__intro button:hover { background: #fff; color: #071016; }
+.webgl-journey__intro > span, .webgl-journey__hint { color: #d7e7ee; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.webgl-journey__hint { position: absolute; z-index: 2; left: 50%; bottom: 1.75rem; transform: translateX(-50%); white-space: nowrap; }
+
+@media (max-width: 640px) {
+    #journey-fallback img { object-position: 58% center; }
+    .journey-fallback__topbar { align-items: flex-start; }
+    .journey-fallback__brand span { display: none; }
+    .journey-fallback__content { left: 1.25rem; bottom: 1.75rem; max-width: calc(100vw - 2.5rem); }
+    .journey-fallback__content h1 { font-size: clamp(3.25rem, 19vw, 5.25rem); }
+    .webgl-journey__header > span { display: none; }
+    .webgl-journey__intro { left: 1.25rem; bottom: 1.75rem; max-width: calc(100vw - 2.5rem); }
+    .webgl-journey__intro h1 { font-size: clamp(3.25rem, 17vw, 5.25rem); }
+    .webgl-journey__hint { max-width: calc(100vw - 2rem); white-space: normal; text-align: center; }
+}

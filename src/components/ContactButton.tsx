@@ -16,9 +16,9 @@ export const ContactButton: React.FC<ContactButtonProps> = ({
       onClick={onClick}
       className={`relative inline-flex items-center justify-center rounded-full text-white font-medium uppercase tracking-widest cursor-pointer transition-all duration-300 hover:scale-105 hover:brightness-110 active:scale-95 px-8 py-3 sm:px-10 sm:py-3.5 md:px-12 md:py-4 text-xs sm:text-sm md:text-base ${className}`}
       style={{
-        background: 'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)',
-        boxShadow: '0px 4px 4px rgba(181, 1, 167, 0.25), 4px 4px 12px #7721B1 inset',
-        outline: '2px solid white',
+        background: 'linear-gradient(135deg, #A855F7 0%, #9333EA 45%, #7E22CE 100%)',
+        boxShadow: '0px 12px 32px rgba(168, 85, 247, 0.45), 0px 4px 12px rgba(0, 0, 0, 0.4)',
+        outline: '2px solid rgba(255, 255, 255, 0.8)',
         outlineOffset: '-3px',
       }}
     >
